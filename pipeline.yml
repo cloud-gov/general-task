@@ -1,0 +1,31 @@
+---
+jobs:
+- name: update-task-image
+  serial: true
+  plan:
+  - aggregate:
+    - get: pipelines
+      trigger: true
+  - task: docker-path
+    file: pipelines/tasks/inflate.yml
+    config:
+      params:
+        INPUT_DIR: pipelines/docker/task
+  - put: concourse-task
+    params:
+      build: docker-path
+
+resources:
+- name: pipelines
+  type: git
+  source:
+    uri: {{pipelines-git-url}}
+    branch: {{pipelines-branch}}
+
+- name: concourse-task
+  type: docker-image
+  source:
+    email: {{docker-email}}
+    username: {{docker-username}}
+    password: {{docker-password}}
+    repository: {{docker-repository}}
