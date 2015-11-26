@@ -1,4 +1,4 @@
-# VERSION 0.1
+# VERSION         0.1.0
 # DOCKER-VERSION  1.9.1
 # DESCRIPTION:    Concourse Task Image
 # TO_BUILD:       tar -czh . | docker build -t local/task -
