@@ -24,21 +24,21 @@ test_timezone "$SYSTEM_TIMEZONE"
 # Test installed packages
 #
 echo "2. Testing installed packages"
-test_package build-essential "$BUILD_ESSENTIAL_VERSION"
-test_package cmake "$CMAKE_VERSION"
-test_package rake "$RAKE_VERSION"
-test_package unzip "$UNZIP_VERSION"
-test_package curl "$CURL_VERSION"
-test_package git "$GIT_VERSION"
-test_package ruby2.0 "$RUBY_VERSION"
-test_package ruby2.0-dev "$RUBY_DEV_VERSION"
-test_package libmysqlclient-dev "$LIBMYSQLCLIENT_DEV_VERSION"
-test_package libpq-dev "$LIBPQ_DEV_VERSION"
-test_package libpopt-dev "$LIBPOPT_DEV_VERSION"
-test_package libssl-dev "$LIBSSL_DEV_VERSION"
-test_package libcurl4-openssl-dev "$LIBCURL4_OPENSSL_DEV_VERSION"
-test_package libxslt1-dev "$LIBXSLT1_DEV_VERSION"
-test_package libyaml-dev "$LIBYAML_DEV_VERSION"
+test_package build-essential
+test_package cmake
+test_package rake
+test_package unzip
+test_package curl
+test_package git
+test_package ruby2.0
+test_package ruby2.0-dev
+test_package libmysqlclient-dev
+test_package libpq-dev
+test_package libpopt-dev
+test_package libssl-dev
+test_package libcurl4-openssl-dev
+test_package libxslt1-dev
+test_package libyaml-dev
 
 #
 # Test installed commands
