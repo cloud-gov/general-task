@@ -7,7 +7,8 @@ SYSTEM_TIMEZONE=EST
 # Software releases (non package managed)
 #
 SPIFF_RELEASE_VERSION=1.0.7
-BOSH_CLI_RELEASE_VERSION=1.3147.0
+BOSH_INIT_RELEASE_VERSION=0.0.81
+BOSH_CLI_RELEASE_VERSION=1.3202.0
 
 #
 # Command versions (only for testing purposes)
