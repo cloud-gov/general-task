@@ -30,15 +30,22 @@ test_package rake
 test_package unzip
 test_package curl
 test_package git
+test_package openssl
 test_package ruby2.0
 test_package ruby2.0-dev
+test_package sqlite3
 test_package libmysqlclient-dev
 test_package libpq-dev
 test_package libpopt-dev
+test_package libreadline6-dev
+test_package libsqlite3-dev
 test_package libssl-dev
 test_package libcurl4-openssl-dev
 test_package libxslt1-dev
+test_package libxml2-dev
 test_package libyaml-dev
+test_package zlibc
+test_package zlib1g-dev
 
 #
 # Test installed commands
@@ -54,4 +61,5 @@ test_command unzip "$UNZIP_CMD_VERSION"
 test_command curl "$CURL_CMD_VERSION"
 test_command git "$GIT_CMD_VERSION"
 test_command spiff "$SPIFF_RELEASE_VERSION"
+test_command bosh-init "$BOSH_INIT_RELEASE_VERSION"
 test_command bosh "$BOSH_CLI_RELEASE_VERSION"
