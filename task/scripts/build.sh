@@ -12,7 +12,8 @@ echo "2. Updating system package registry"
 apt-get -y update
 
 echo "3. Installing basic libraries and development utilities"
-apt-get -y install build-essential \
+apt-get -y install awscli \
+                   build-essential \
                    cmake \
                    rake \
                    unzip \

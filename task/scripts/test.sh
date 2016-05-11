@@ -24,6 +24,7 @@ test_timezone "$SYSTEM_TIMEZONE"
 # Test installed packages
 #
 echo "2. Testing installed packages"
+test_package awscli
 test_package build-essential
 test_package cmake
 test_package rake
