@@ -19,7 +19,6 @@ apt-get -y install awscli \
                    unzip \
                    curl \
                    git \
-                   jq \
                    openssl \
                    ruby2.0 \
                    ruby2.0-dev \
@@ -52,4 +51,9 @@ chmod +x /usr/local/bin/bosh-init
 echo "6. Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
+echo "7. Installing jq"
+curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"
+chmod +x /usr/local/bin/jq
+
 apt-get clean
+rm -rf /var/cache/apt
