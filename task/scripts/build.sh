@@ -12,14 +12,14 @@ echo "2. Updating system package registry"
 apt-get -y update
 
 echo "3. Installing basic libraries and development utilities"
-apt-get -y install awscli \
-                   build-essential \
+apt-get -y install build-essential \
                    cmake \
                    rake \
                    unzip \
                    curl \
                    git \
                    openssl \
+                   python3-pip \
                    ruby2.0 \
                    ruby2.0-dev \
                    sqlite3 \
@@ -54,6 +54,9 @@ gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 echo "7. Installing jq"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"
 chmod +x /usr/local/bin/jq
+
+echo "8. Installing awscli"
+pip3 install awscli
 
 apt-get clean
 rm -rf /var/cache/apt

@@ -24,7 +24,6 @@ test_timezone "$SYSTEM_TIMEZONE"
 # Test installed packages
 #
 echo "2. Testing installed packages"
-test_package awscli
 test_package build-essential
 test_package cmake
 test_package rake
@@ -32,6 +31,7 @@ test_package unzip
 test_package curl
 test_package git
 test_package openssl
+test_package python3-pip
 test_package ruby2.0
 test_package ruby2.0-dev
 test_package sqlite3
