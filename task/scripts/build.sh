@@ -19,6 +19,7 @@ apt-get -y install awscli \
                    unzip \
                    curl \
                    git \
+                   jq \
                    openssl \
                    ruby2.0 \
                    ruby2.0-dev \
@@ -50,3 +51,5 @@ chmod +x /usr/local/bin/bosh-init
 
 echo "6. Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
+
+apt-get clean

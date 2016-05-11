@@ -31,6 +31,7 @@ test_package rake
 test_package unzip
 test_package curl
 test_package git
+test_package jq
 test_package openssl
 test_package ruby2.0
 test_package ruby2.0-dev
