@@ -58,5 +58,10 @@ chmod +x /usr/local/bin/jq
 echo "8. Installing awscli"
 pip3 install awscli
 
+echo "9. Installing terraform"
+curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/0.6.16/terraform_0.6.16_linux_amd64.zip"
+unzip -d /usr/local/bin terraform.zip
+rm -f terraform.zip
+
 apt-get clean
 rm -rf /var/cache/apt

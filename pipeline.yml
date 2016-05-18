@@ -13,8 +13,8 @@ jobs:
       inputs:
         - name: concourse-task-image-src
         - name: pipeline-tasks
-      params:
-        INPUT_DIR: concourse-task-image-src/task
+    params:
+      INPUT_DIR: concourse-task-image-src/task
   - put: docker-image-repo
     params:
       build: inflate
