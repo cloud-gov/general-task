@@ -61,7 +61,7 @@ pip3 install awscli
 echo "9. Installing terraform"
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/0.6.16/terraform_0.6.16_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
-REMOVE_PROVIDERS="atlas azure azurerm clc cloudflare cloudstack cobbler consul datadog digitalocean dme dnsimple docker dyn fastly github google heroku influxdb librato mailgun mysql openstack packet postgresql powerdns rundeck softlayer statuscake tls triton ultradns vcd vsphere"
+REMOVE_PROVIDERS="atlas azure azurerm clc cloudflare cloudstack cobbler consul datadog digitalocean dme dnsimple docker dyn fastly github google heroku influxdb librato mailgun openstack packet powerdns rundeck softlayer statuscake tls triton ultradns vcd vsphere"
 for provider in $REMOVE_PROVIDERS
 do
   rm -f /usr/local/bin/terraform-provider-${provider}
