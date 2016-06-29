@@ -19,6 +19,7 @@ apt-get -y install build-essential \
                    curl \
                    git \
                    openssl \
+                   postgresql-client-common \
                    python3-pip \
                    ruby2.0 \
                    ruby2.0-dev \
