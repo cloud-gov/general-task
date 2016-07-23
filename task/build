@@ -1,6 +1,0 @@
-#/bin/bash
-#
-# Run this directory through tar so we can dereference parent links
-# and keep Docker from exploding due to inclusion on parent directory files
-#
-tar -czh . | docker build -t local/task -
