@@ -45,21 +45,25 @@ curl -L -o /tmp/spiff.zip "https://github.com/cloudfoundry-incubator/spiff/relea
 unzip /tmp/spiff.zip -d /usr/local/bin
 rm -f /tmp/spiff.zip
 
-echo "5. Installing bosh-init"
+echo "5. Installing Spruce"
+curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
+chmod +x /usr/local/bin/spruce
+
+echo "6. Installing bosh-init"
 curl -L -o /usr/local/bin/bosh-init "https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-$BOSH_INIT_RELEASE_VERSION-linux-amd64"
 chmod +x /usr/local/bin/bosh-init
 
-echo "6. Installing BOSH CLI"
+echo "7. Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
-echo "7. Installing jq"
+echo "8. Installing jq"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"
 chmod +x /usr/local/bin/jq
 
-echo "8. Installing awscli"
+echo "9. Installing awscli"
 pip3 install awscli
 
-echo "9. Installing terraform"
+echo "10. Installing terraform"
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/0.6.16/terraform_0.6.16_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 REMOVE_PROVIDERS="atlas azure azurerm clc cloudflare cloudstack cobbler consul datadog digitalocean dme dnsimple docker dyn fastly github google heroku influxdb librato mailgun openstack packet powerdns rundeck softlayer statuscake tls triton ultradns vcd vsphere"
