@@ -8,7 +8,7 @@ source ./config.sh
 #
 # Source library functions
 #
-for file in /opt/concourse-ci/lib/*.sh
+for file in /opt/concourse-ci/task/lib/*.sh
   do source $file
 done
 
