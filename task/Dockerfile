@@ -1,14 +1,13 @@
 # VERSION         0.1.0
 # DOCKER-VERSION  1.9.1
 # DESCRIPTION:    Concourse Task Image
-# TO_BUILD:       tar -czh . | docker build -t local/task -
+# TO_BUILD:       docker build -t local/task .
 # TO_RUN:         docker run local/task echo "Hello World!"
 
 FROM ubuntu:14.04
 
 # Copy local project directories to container image
 COPY . /opt/concourse-ci/task
-COPY ./lib /opt/concourse-ci/lib
 
 # Set current working directory for executed scripts
 WORKDIR /opt/concourse-ci/task

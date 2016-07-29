@@ -3,29 +3,13 @@ jobs:
 - name: update-task-image
   serial: true
   plan:
-  - aggregate:
-    - get: pipeline-tasks
-    - get: concourse-task-image-src
-      trigger: true
-  - task: docker-path
-    file: pipeline-tasks/inflate.yml
-    config:
-      inputs:
-        - name: concourse-task-image-src
-        - name: pipeline-tasks
-    params:
-      INPUT_DIR: concourse-task-image-src/task
+  - get: concourse-task-image-src
+    trigger: true
   - put: docker-image-repo
     params:
-      build: inflate
+      build: concourse-task-image-src/task
 
 resources:
-- name: pipeline-tasks
-  type: git
-  source:
-    uri: {{pipeline-tasks-git-url}}
-    branch: {{pipeline-tasks-git-branch}}
-
 - name: concourse-task-image-src
   type: git
   source:
