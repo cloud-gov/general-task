@@ -73,5 +73,8 @@ do
 done
 rm -f terraform.zip
 
+echo "11. Installing CF Client"
+curl -L 'https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.21.1' | tar -zx -C /usr/local/bin
+
 apt-get clean
 rm -rf /var/cache/apt
