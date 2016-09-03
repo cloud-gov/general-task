@@ -57,7 +57,7 @@ echo "7. Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 echo "8. Installing jq"
-curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"
+curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
 chmod +x /usr/local/bin/jq
 
 echo "9. Installing awscli"
@@ -74,7 +74,10 @@ done
 rm -f terraform.zip
 
 echo "11. Installing CF Client"
-curl -L 'https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.21.1' | tar -zx -C /usr/local/bin
+curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
+
+echo "12. Installing uaac"
+gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 apt-get clean
 rm -rf /var/cache/apt
