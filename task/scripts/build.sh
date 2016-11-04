@@ -64,7 +64,7 @@ echo "9. Installing awscli"
 pip3 install awscli
 
 echo "10. Installing terraform"
-curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/0.7.3/terraform_0.7.3_linux_amd64.zip"
+curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 rm -f terraform.zip
 
