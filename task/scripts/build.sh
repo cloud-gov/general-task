@@ -75,5 +75,9 @@ curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_C
 echo "12. Installing uaac"
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
+echo "13. Installing BOSH CLI v2"
+curl -L -o /usr/local/bin/bosh-cli "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
+chmod +x /usr/local/bin/bosh-cli
+
 apt-get clean
 rm -rf /var/cache/apt
