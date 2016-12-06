@@ -17,6 +17,7 @@ apt-get -y install build-essential \
                    rake \
                    unzip \
                    curl \
+                   dnsutils \
                    git \
                    openssl \
                    postgresql-client \
