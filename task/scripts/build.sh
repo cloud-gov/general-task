@@ -41,6 +41,7 @@ apt-get -y install build-essential \
 # Set default versions of ruby and gem to 2.0 versions
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+gem install bundler --no-ri --no-rdoc
 
 echo "4. Installing Spiff"
 curl -L -o /tmp/spiff.zip "https://github.com/cloudfoundry-incubator/spiff/releases/download/v$SPIFF_RELEASE_VERSION/spiff_linux_amd64.zip"
