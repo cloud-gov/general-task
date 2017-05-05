@@ -94,6 +94,20 @@ chmod +x /usr/local/bin/bosh-cli
 echo "14. Installing RiemannC"
 git clone https://github.com/dhilst/riemann-c-client /tmp/riemann-c-client && pushd /tmp/riemann-c-client && ./build.sh && ./configure --prefix=/usr && make install && popd && rm -fr /tmp/riemann-c-client
 
+echo "15. Installing bosh-lint"
+mkdir -p /goroot
+curl https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
+
+export GOROOT=/goroot
+export PATH=$GOROOT/bin:$PATH
+
+git clone https://github.com/cppforlife/bosh-lint
+pushd bosh-lint
+  source .envrc
+  ./bin/build
+  mv out/bosh-lint /usr/local/bin/bosh-lint
+popd
+rm -rf bosh-lint
 
 apt-get clean
 rm -rf /var/cache/apt
