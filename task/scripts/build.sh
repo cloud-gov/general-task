@@ -90,6 +90,7 @@ gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 echo "13. Installing BOSH CLI v2"
 curl -L -o /usr/local/bin/bosh-cli "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
 chmod +x /usr/local/bin/bosh-cli
+alias gosh=/usr/local/bin/bosh-cli
 
 echo "14. Installing RiemannC"
 git clone https://github.com/dhilst/riemann-c-client /tmp/riemann-c-client && pushd /tmp/riemann-c-client && ./build.sh && ./configure --prefix=/usr && make install && popd && rm -fr /tmp/riemann-c-client
