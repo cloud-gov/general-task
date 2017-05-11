@@ -30,6 +30,7 @@ apt-get -y install build-essential \
                    postgresql-client \
                    postgresql-client-common \
                    python3-pip \
+                   python3-openssl \
                    ruby2.0 \
                    ruby2.0-dev \
                    sqlite3 \
