@@ -69,6 +69,7 @@ chmod +x /usr/local/bin/bosh-init
 
 echo "7. Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
+mv /usr/local/bin/bosh /usr/local/bin/bosh-legacy
 
 echo "8. Installing jq"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
@@ -89,8 +90,9 @@ echo "12. Installing uaac"
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 echo "13. Installing BOSH CLI v2"
-curl -L -o /usr/local/bin/bosh-cli "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
-chmod +x /usr/local/bin/bosh-cli
+curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
+chmod +x /usr/local/bin/bosh
+alias bosh-cli=$(which bosh)
 
 echo "14. Installing RiemannC"
 git clone https://github.com/dhilst/riemann-c-client /tmp/riemann-c-client && pushd /tmp/riemann-c-client && ./build.sh && ./configure --prefix=/usr && make install && popd && rm -fr /tmp/riemann-c-client
