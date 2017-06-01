@@ -12,13 +12,13 @@ apt-get update && apt-get -y -q install wget
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
 
-echo "1. Updating system timezone"
+echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
-echo "2. Updating system package registry"
+echo "Updating system package registry"
 apt-get -y update
 
-echo "3. Installing basic libraries and development utilities"
+echo "Installing basic libraries and development utilities"
 apt-get -y install build-essential \
                    cmake \
                    rake \
@@ -54,48 +54,50 @@ update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
 gem install bundler --no-ri --no-rdoc
 
-echo "4. Installing Spiff"
+echo "Installing Spiff"
 curl -L -o /tmp/spiff.zip "https://github.com/cloudfoundry-incubator/spiff/releases/download/v$SPIFF_RELEASE_VERSION/spiff_linux_amd64.zip"
 unzip /tmp/spiff.zip -d /usr/local/bin
 rm -f /tmp/spiff.zip
 
-echo "5. Installing Spruce"
+echo "Installing Spruce"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
 chmod +x /usr/local/bin/spruce
 
-echo "6. Installing bosh-init"
-curl -L -o /usr/local/bin/bosh-init "https://s3.amazonaws.com/bosh-init-artifacts/bosh-init-$BOSH_INIT_RELEASE_VERSION-linux-amd64"
-chmod +x /usr/local/bin/bosh-init
-
-echo "7. Installing BOSH CLI"
+echo "Installing BOSH CLI"
 gem install bosh_cli -v "$BOSH_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
-echo "8. Installing jq"
+echo "Installing jq"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
 chmod +x /usr/local/bin/jq
 
-echo "9. Installing awscli"
+echo "Installing awscli"
 pip3 install awscli
 
-echo "10. Installing terraform"
-curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
-unzip -d /usr/local/bin terraform.zip
-rm -f terraform.zip
+echo "Installing terraform"
+curl -L -o terraform8.zip "https://releases.hashicorp.com/terraform/${TERRAFORM8_RELEASE_VERSION}/terraform_${TERRAFORM8_RELEASE_VERSION}_linux_amd64.zip"
+unzip -d /usr/local/bin terraform8.zip
+rm -f terraform8.zip
 
-echo "11. Installing CF Client"
+# install terraform 0.9 side-by-side for testing
+curl -L -o terraform9.zip "https://releases.hashicorp.com/terraform/${TERRAFORM9_RELEASE_VERSION}/terraform_${TERRAFORM9_RELEASE_VERSION}_linux_amd64.zip"
+unzip -d /tmp terraform9.zip
+mv /tmp/terraform /usr/local/bin/terraform9
+rm -f terraform9.zip
+
+echo "Installing CF Client"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
 
-echo "12. Installing uaac"
+echo "Installing uaac"
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
-echo "13. Installing BOSH CLI v2"
+echo "Installing BOSH CLI v2"
 curl -L -o /usr/local/bin/bosh-cli "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
 chmod +x /usr/local/bin/bosh-cli
 
-echo "14. Installing RiemannC"
+echo "Installing RiemannC"
 git clone https://github.com/dhilst/riemann-c-client /tmp/riemann-c-client && pushd /tmp/riemann-c-client && ./build.sh && ./configure --prefix=/usr && make install && popd && rm -fr /tmp/riemann-c-client
 
-echo "15. Installing bosh-lint"
+echo "Installing bosh-lint"
 mkdir -p /goroot
 curl https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
 
@@ -112,3 +114,16 @@ rm -rf bosh-lint
 
 apt-get clean
 rm -rf /var/cache/apt
+
+echo "Installing Terraform cloudfoundry provider"
+TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
+mkdir -p $(dirname $TARGET)
+curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
+chmod 755 ${TARGET}
+
+cat <<EOF >> ~/.terraformrc
+providers {
+    cloudfoundry = "${TARGET}"
+}
+
+EOF
