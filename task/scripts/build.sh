@@ -118,12 +118,7 @@ rm -rf /var/cache/apt
 echo "Installing Terraform cloudfoundry provider"
 TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
 mkdir -p $(dirname $TARGET)
-# curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
-# build from master until next release
-export GOPATH=$(mktemp -d)
-go get github.com/orange-cloudfoundry/terraform-provider-cloudfoundry
-cp ${GOPATH}/bin/terraform-provider-cloudfoundry ${TARGET}
-rm -fr ${GOPATH}
+curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
 chmod 755 ${TARGET}
 
 cat <<EOF >> ~/.terraformrc
