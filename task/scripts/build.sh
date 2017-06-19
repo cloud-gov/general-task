@@ -74,15 +74,9 @@ echo "Installing awscli"
 pip3 install awscli
 
 echo "Installing terraform"
-curl -L -o terraform8.zip "https://releases.hashicorp.com/terraform/${TERRAFORM8_RELEASE_VERSION}/terraform_${TERRAFORM8_RELEASE_VERSION}_linux_amd64.zip"
-unzip -d /usr/local/bin terraform8.zip
-rm -f terraform8.zip
-
-# install terraform 0.9 side-by-side for testing
-curl -L -o terraform9.zip "https://releases.hashicorp.com/terraform/${TERRAFORM9_RELEASE_VERSION}/terraform_${TERRAFORM9_RELEASE_VERSION}_linux_amd64.zip"
-unzip -d /tmp terraform9.zip
-mv /tmp/terraform /usr/local/bin/terraform9
-rm -f terraform9.zip
+curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
+unzip -d /usr/local/bin terraform.zip
+rm -f terraform.zip
 
 echo "Installing CF Client"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
