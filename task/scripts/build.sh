@@ -120,3 +120,8 @@ providers {
 }
 
 EOF
+
+echo "Installing Bats BASH testing framework"
+git clone https://github.com/sstephenson/bats.git
+cd bats
+./install.sh /usr/local

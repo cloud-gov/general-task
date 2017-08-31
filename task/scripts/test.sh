@@ -72,3 +72,4 @@ test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
 test_command "riemannc send"
 test_command bosh-lint "$BOSH_LINT_CMD_VERSION" --version
 test_command /root/.terraform.d/providers/terraform-provider-cloudfoundry "These are not meant to be executed directly"
+test_command bats "$BATS_CMD_VERSION"
