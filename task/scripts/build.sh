@@ -79,6 +79,8 @@ echo "Installing CF Client"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
 
 echo "Installing uaac"
+# must pin public_suffix to <3.0 on 14.04 when using UAAC >=4.0
+gem install public_suffix -v "<3.0"  --no-ri --no-rdoc
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 echo "Installing BOSH CLI v2"
