@@ -122,6 +122,8 @@ providers {
 EOF
 
 echo "Installing Bats BASH testing framework"
-git clone https://github.com/sstephenson/bats.git
-cd bats
+git clone https://github.com/sstephenson/bats.git /tmp/bats-repo
+pushd /tmp/bats-repo
 ./install.sh /usr/local
+popd
+rm -rf /tmp/bats-repo
