@@ -48,7 +48,8 @@ apt-get -y install build-essential \
                    zlib1g-dev \
                    protobuf-c-compiler \
                    autoconf \
-                   libtool
+                   libtool \
+                   vim-tiny
 # Set default versions of ruby and gem to 2.0 versions
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
