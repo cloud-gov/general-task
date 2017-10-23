@@ -48,7 +48,8 @@ apt-get -y install build-essential \
                    zlib1g-dev \
                    protobuf-c-compiler \
                    autoconf \
-                   libtool
+                   libtool \
+                   vim-tiny
 # Set default versions of ruby and gem to 2.0 versions
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
@@ -79,6 +80,8 @@ echo "Installing CF Client"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
 
 echo "Installing uaac"
+# must pin public_suffix to <3.0 on 14.04 when using UAAC >=4.0
+gem install public_suffix -v "<3.0"  --no-ri --no-rdoc
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 echo "Installing BOSH CLI v2"
