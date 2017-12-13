@@ -45,10 +45,6 @@ apt-get -y install build-essential \
                    libxml2-dev \
                    libyaml-dev \
                    zlibc \
-                   zlib1g-dev \
-                   protobuf-c-compiler \
-                   autoconf \
-                   libtool \
                    vim-tiny
 # Set default versions of ruby and gem to 2.0 versions
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
@@ -89,9 +85,6 @@ curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh
 chmod +x /usr/local/bin/bosh
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh2
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh-cli
-
-echo "Installing RiemannC"
-git clone https://github.com/dhilst/riemann-c-client /tmp/riemann-c-client && pushd /tmp/riemann-c-client && ./build.sh && ./configure --prefix=/usr && make install && popd && rm -fr /tmp/riemann-c-client
 
 echo "Installing bosh-lint"
 mkdir -p /goroot
