@@ -61,7 +61,6 @@ test_command openssl "$OPENSSL_CMD_VERSION" version
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command curl "$CURL_CMD_VERSION"
 test_command git "$GIT_CMD_VERSION"
-test_command spiff "$SPIFF_RELEASE_VERSION"
 test_command spruce "$SPRUCE_RELEASE_VERSION"
 test_command jq "$JQ_CMD_VERSION"
 test_command terraform "$TERRAFORM8_CMD_VERSION"

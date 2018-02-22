@@ -27,6 +27,7 @@ apt-get -y install build-essential \
                    dnsutils \
                    git \
                    openssl \
+                   whois \
                    postgresql-client \
                    postgresql-client-common \
                    python3-pip \
@@ -50,11 +51,6 @@ apt-get -y install build-essential \
 update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
 gem install bundler --no-ri --no-rdoc
-
-echo "Installing Spiff"
-curl -L -o /tmp/spiff.zip "https://github.com/cloudfoundry-incubator/spiff/releases/download/v$SPIFF_RELEASE_VERSION/spiff_linux_amd64.zip"
-unzip /tmp/spiff.zip -d /usr/local/bin
-rm -f /tmp/spiff.zip
 
 echo "Installing Spruce"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
