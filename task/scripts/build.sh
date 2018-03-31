@@ -93,8 +93,9 @@ git clone https://github.com/cppforlife/bosh-lint
 pushd bosh-lint
   source .envrc
   ./bin/build
-  mv out/bosh-lint /usr/local/bin/bosh-lint
+  mv out/bosh-ext /usr/local/bin/bosh-ext
 popd
+ln -s /usr/local/bin/bosh-ext /usr/local/bin/bosh-lint
 rm -rf bosh-lint
 
 apt-get clean
