@@ -128,7 +128,7 @@ pushd $GOPATH/src/github.com/terraform-providers/terraform-provider-powerdns
   cp terraform-provider-powerdns "${PROVIDERS}"
 popd
 
-TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry version ${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}"
+TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
 mkdir -p $(dirname $TARGET)
 curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
 chmod 755 ${TARGET}
