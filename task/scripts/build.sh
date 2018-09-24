@@ -53,26 +53,26 @@ apt-get -y install build-essential \
 # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
 # gem install bundler --no-ri --no-rdoc
 
-echo "Installing Spruce"
+echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
 chmod +x /usr/local/bin/spruce
 
-echo "Installing jq"
+echo "Installing jq version ${JQ_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
 chmod +x /usr/local/bin/jq
 
 echo "Installing awscli"
 pip3 install awscli
 
-echo "Installing terraform"
+echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 rm -f terraform.zip
 
-echo "Installing CF Client"
+echo "Installing CF Client version ${CF_CLI_RELEASE_VERSION}"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
 
-echo "Installing Credhub Client"
+echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
@@ -81,7 +81,7 @@ curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download
 # gem install public_suffix -v "<3.0"  --no-ri --no-rdoc
 # gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
-echo "Installing BOSH CLI v2"
+echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
 chmod +x /usr/local/bin/bosh
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh2
@@ -106,7 +106,7 @@ rm -rf bosh-lint
 apt-get clean
 rm -rf /var/cache/apt
 
-echo "Installing Terraform cloudfoundry provider"
+echo "Installing Terraform cloudfoundry provider version ${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}"
 TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
 mkdir -p $(dirname $TARGET)
 curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
@@ -128,7 +128,7 @@ pushd $GOPATH/src/github.com/terraform-providers/terraform-provider-powerdns
   cp terraform-provider-powerdns "${PROVIDERS}"
 popd
 
-TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
+TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry version ${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}"
 mkdir -p $(dirname $TARGET)
 curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
 chmod 755 ${TARGET}
