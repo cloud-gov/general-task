@@ -44,15 +44,14 @@ apt-get -y install build-essential \
                    libxml2-dev \
                    libyaml-dev \
                    zlibc \
-                   vim-tiny
-# don't install ruby, since we're not using it anyway		   
-#                   ruby2.0 \
-#                   ruby2.0-dev \
+                   vim-tiny \
+                   ruby \
+                   ruby-dev \
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # Set default versions of ruby and gem to 2.0 versions
 # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
-# gem install bundler --no-ri --no-rdoc
+gem install bundler --no-ri --no-rdoc
 
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
@@ -77,10 +76,8 @@ echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
-# echo "Installing uaac"
-# # must pin public_suffix to <3.0 on 14.04 when using UAAC >=4.0
-# gem install public_suffix -v "<3.0"  --no-ri --no-rdoc
-# gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
+echo "Installing uaac"
+gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"

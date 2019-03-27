@@ -32,8 +32,8 @@ test_package curl
 test_package git
 test_package openssl
 test_package python3-pip
-#test_package ruby2.0
-#test_package ruby2.0-dev
+test_package ruby
+test_package ruby-dev
 test_package sqlite3
 test_package libmysqlclient-dev
 test_package libpq-dev
@@ -55,9 +55,8 @@ echo "3. Testing installed commands"
 test_command make "$MAKE_CMD_VERSION"
 test_command cmake "$CMAKE_CMD_VERSION"
 test_command rake "$RAKE_CMD_VERSION"
-# Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
-# test_command ruby "$RUBY_CMD_VERSION"
-# test_command gem "$GEM_CMD_VERSION"
+test_command ruby "$RUBY_CMD_VERSION"
+test_command gem "$GEM_CMD_VERSION"
 test_command openssl "$OPENSSL_CMD_VERSION" version
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command curl "$CURL_CMD_VERSION"
@@ -67,8 +66,7 @@ test_command jq "$JQ_CMD_VERSION"
 test_command terraform "$TERRAFORM8_CMD_VERSION"
 test_command terraform9 "$TERRAFORM9_CMD_VERSION"
 test_command cf "$CF_CMD_VERSION"
-# Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
-# test_command uaac "$UAAC_CMD_VERSION"
+test_command uaac "$UAAC_CMD_VERSION"
 test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
 test_command /root/.terraform.d/providers/terraform-provider-cloudfoundry "These are not meant to be executed directly"
 test_command bats "$BATS_CMD_VERSION"
