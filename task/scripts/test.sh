@@ -32,13 +32,13 @@ test_package curl
 test_package git
 test_package openssl
 test_package python3-pip
-test_package ruby2.0
-test_package ruby2.0-dev
+#test_package ruby2.0
+#test_package ruby2.0-dev
 test_package sqlite3
 test_package libmysqlclient-dev
 test_package libpq-dev
 test_package libpopt-dev
-test_package libreadline6-dev
+test_package libreadline-dev
 test_package libsqlite3-dev
 test_package libssl-dev
 test_package libcurl4-openssl-dev
