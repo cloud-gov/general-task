@@ -44,7 +44,7 @@ apt-get -y install build-essential \
                    libxml2-dev \
                    libyaml-dev \
                    zlibc \
-                   vim-tiny \
+                   vim \
                    ruby \
                    ruby-dev \
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
