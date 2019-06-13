@@ -1,23 +1,22 @@
 ---
 jobs:
 - name: update-concourse-task-image
-  serial: true
   plan:
-  - get: concourse-task-image-src
+  - get: concourse-images
     trigger: true
-  - put: docker-image-repo
+  - put: concourse-tasks-image-repo
     params:
-      build: concourse-task-image-src/task/concourse-tasks
-- name: update-sql-image-task
+      build: concourse-images/task/concourse-tasks
+- name: update-sql-client-image
   plan:
-  - get: concourse-task-image-src
+  - get: concourse-images
     trigger: true
-  - put: docker-image-repo
+  - put: sql-image-repo
     params:
-      build: concourse-task-image-src/task/sql-image
+      build: concourse-images/task/sql-image
 
 resources:
-- name: concourse-task-image-src
+- name: concourse-images
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
@@ -31,7 +30,7 @@ resources:
     password: {{docker-password}}
     repository: {{sql-image-repository}}
 
-- name: concourse-tasks-repo
+- name: concourse-tasks-image-repo
   type: docker-image
   source:
     email: {{docker-email}}
