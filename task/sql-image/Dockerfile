@@ -5,7 +5,7 @@ ENV ACCEPT_EULA Y
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y curl gnupg && \
+    apt-get install -y curl gnupg jq && \
     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     curl https://packages.microsoft.com/config/ubuntu/18.04/prod.list | tee /etc/apt/sources.list.d/msprod.list && \
     apt-get update
