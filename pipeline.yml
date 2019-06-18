@@ -7,13 +7,6 @@ jobs:
   - put: concourse-tasks-image-repo
     params:
       build: concourse-images/task/concourse-tasks
-- name: update-sql-client-image
-  plan:
-  - get: concourse-images
-    trigger: true
-  - put: sql-image-repo
-    params:
-      build: concourse-images/task/sql-image
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
@@ -21,6 +14,18 @@ jobs:
   - put: oracle-image-repository
     params:
       build: oracle-image-git-repository/OracleInstantClient/dockerfiles/19
+- name: update-sql-client-image
+  plan:
+  - in_parallel:
+      steps:
+      - get: concourse-images
+        trigger: true
+      - get: oracle-image-repository
+        passed: [update-oracle-image-task]
+        trigger: true
+  - put: sql-image-repo
+    params:
+      build: concourse-images/task/sql-image
 
 resources:
 - name: concourse-images
