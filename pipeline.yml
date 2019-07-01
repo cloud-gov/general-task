@@ -37,6 +37,17 @@ jobs:
       params:
         build: s3-resource-simple
 
+- name: s3-resource-simple-image
+  plan:
+    - get: alpine-image
+      params:
+        skip_download: true
+      trigger: true
+    - get: s3-resource-simple-repository
+    - put: s3-resource-simple-repo
+      params:
+        build: s3-resource-simple-repository
+
 resources:
 - name: concourse-images
   type: git
