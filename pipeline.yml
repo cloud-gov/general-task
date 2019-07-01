@@ -26,6 +26,27 @@ jobs:
   - put: sql-image-repo
     params:
       build: concourse-images/task/sql-image
+- name: s3-resource-simple-image
+  plan:
+    - get: alpine-image
+      params:
+        skip_download: true
+      trigger: true
+    - get: s3-resource-simple
+    - put: s3-resource-simple-repo
+      params:
+        build: s3-resource-simple
+
+- name: s3-resource-simple-image
+  plan:
+    - get: alpine-image
+      params:
+        skip_download: true
+      trigger: true
+    - get: s3-resource-simple-repository
+    - put: s3-resource-simple-repo
+      params:
+        build: s3-resource-simple-repository
 
 resources:
 - name: concourse-images
@@ -63,3 +84,22 @@ resources:
     username: {{docker-username}}
     password: {{docker-password}}
     repository: {{oracle-image-repository}}
+
+- name: s3-resource-simple-repository
+  type: git
+  source:
+    uri: {{s3-resource-simple-git-repository}}
+    branch: {{s3-resource-simple-git-repository-branch}}
+
+- name: s3-resource-simple-repo
+  type: docker-image
+  source:
+    email: {{docker-email}}
+    username: {{docker-username}}
+    password: {{docker-password}}
+    repository: {{s3-resource-simple-image-repository}}
+
+- name: alpine-image
+  type: docker-image
+  source:
+    repository: alpine
