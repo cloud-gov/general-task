@@ -57,7 +57,6 @@ test_command cmake "$CMAKE_CMD_VERSION"
 test_command rake "$RAKE_CMD_VERSION"
 test_command ruby "$RUBY_CMD_VERSION"
 test_command gem "$GEM_CMD_VERSION"
-test_command openssl "$OPENSSL_CMD_VERSION" version
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command curl "$CURL_CMD_VERSION"
 test_command git "$GIT_CMD_VERSION"
