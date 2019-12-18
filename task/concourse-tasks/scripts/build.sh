@@ -148,3 +148,7 @@ pushd /tmp/bats-repo
 ./install.sh /usr/local
 popd
 rm -rf /tmp/bats-repo
+
+echo "Installing Doomsday CLI"
+wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux
+mv ./doomsday-linux /usr/bin/doomsday
