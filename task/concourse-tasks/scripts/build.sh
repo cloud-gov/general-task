@@ -151,4 +151,5 @@ rm -rf /tmp/bats-repo
 
 echo "Installing Doomsday CLI"
 wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux
+chmod a+x doomsday-linux
 mv ./doomsday-linux /usr/bin/doomsday
