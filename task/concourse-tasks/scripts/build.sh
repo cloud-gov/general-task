@@ -88,6 +88,7 @@ chmod +x /usr/local/bin/bosh
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh2
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh-cli
 
+# todo (mxplusb): update to current version of go
 echo "Installing bosh-lint"
 mkdir -p /goroot
 curl https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
@@ -153,3 +154,9 @@ echo "Installing Doomsday CLI"
 wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux
 chmod a+x doomsday-linux
 mv ./doomsday-linux /usr/bin/doomsday
+
+echo "Installing new UAA client."
+wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/uaa-linux-amd64-0.10.0
+mv uaa-linux-amd64-0.10.0 /usr/bin/uaa
+chmod a+x /usr/bin/uaa
+
