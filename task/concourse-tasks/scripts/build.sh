@@ -8,7 +8,14 @@ set -e
 source ./config.sh
 
 # Install current postgres
-apt-get update && apt-get -y -q install wget lsb-release gnupg2 tzdata
+apt-get update
+apt-get -y -q install \
+  software-properties-common \
+  wget \
+  lsb-release \
+  gnupg2 \
+  tzdata
+
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
 
@@ -16,6 +23,7 @@ echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
 echo "Updating system package registry"
+add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
 echo "Installing basic libraries and development utilities"
@@ -44,6 +52,7 @@ apt-get -y install build-essential \
                    libxml2-dev \
                    libyaml-dev \
                    zlibc \
+                   yq \
                    vim \
                    ruby \
                    ruby-dev \
@@ -159,4 +168,3 @@ echo "Installing new UAA client."
 wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/uaa-linux-amd64-0.10.0
 mv uaa-linux-amd64-0.10.0 /usr/bin/uaa
 chmod a+x /usr/bin/uaa
-
