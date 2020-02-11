@@ -10,11 +10,11 @@ source ./config.sh
 # Install current postgres
 apt-get update
 apt-get -y -q install \
-  software-properties-common \
-  wget \
-  lsb-release \
   gnupg2 \
+  lsb-release \
+  software-properties-common \
   tzdata
+  wget \
 
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
@@ -27,35 +27,37 @@ add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
 echo "Installing basic libraries and development utilities"
-apt-get -y install build-essential \
-                   cmake \
-                   rake \
-                   unzip \
-                   curl \
-                   dnsutils \
-                   git \
-                   openssl \
-                   whois \
-                   postgresql-client \
-                   postgresql-client-common \
-                   python3-pip \
-                   python3-openssl \
-                   sqlite3 \
-                   libmysqlclient-dev \
-                   libpopt-dev \
-                   libpq-dev \
-                   libreadline6-dev \
-                   libsqlite3-dev \
-                   libssl-dev \
-                   libcurl4-openssl-dev \
-                   libxslt1-dev \
-                   libxml2-dev \
-                   libyaml-dev \
-                   zlibc \
-                   yq \
-                   vim \
-                   ruby \
-                   ruby-dev \
+apt-get -y install \
+  build-essential \
+  cmake \
+  curl \
+  dnsutils \
+  git \
+  libcurl4-openssl-dev \
+  libmysqlclient-dev \
+  libpopt-dev \
+  libpq-dev \
+  libreadline6-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libxml2-dev \
+  libxslt1-dev \
+  libyaml-dev \
+  openssl \
+  postgresql-client \
+  postgresql-client-common \
+  python3-openssl \
+  python3-pip \
+  rake \
+  ruby \
+  ruby-dev \
+  sqlite3 \
+  unzip \
+  vim \
+  whois \
+  yq \
+  zlibc \
+
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # Set default versions of ruby and gem to 2.0 versions
 # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
