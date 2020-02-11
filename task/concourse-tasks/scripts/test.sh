@@ -32,6 +32,7 @@ test_package curl
 test_package git
 test_package openssl
 test_package python3-pip
+test_package yq
 test_package ruby
 test_package ruby-dev
 test_package sqlite3
