@@ -13,7 +13,7 @@ apt-get -y -q install \
   gnupg2 \
   lsb-release \
   software-properties-common \
-  tzdata
+  tzdata \
   wget \
 
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
