@@ -80,8 +80,13 @@ curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_R
 unzip -d /usr/local/bin terraform.zip
 rm -f terraform.zip
 
-echo "Installing CF Client version ${CF_CLI_RELEASE_VERSION}"
+echo "Installing CF Client version 6 ${CF_CLI_RELEASE_VERSION6}"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
+mv /usr/local/bin/cf /usr/local/bin/cf6
+
+echo "Installing CF Client version 7 ${CF_CLI_RELEASE_VERSION7}"
+curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION}" | tar -zx -C /usr/local/bin
+mv /usr/local/bin/cf7 /usr/local/bin/cf
 
 echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
