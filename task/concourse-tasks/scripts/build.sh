@@ -75,6 +75,12 @@ chmod +x /usr/local/bin/jq
 echo "Installing awscli"
 pip3 install awscli
 
+echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
+curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
+unzip -d /usr/local/bin terraform.zip
+mv /usr/local/bin/terraform /usr/local/bin/terratest-11.14
+rm -f terraform.zip
+
 echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
