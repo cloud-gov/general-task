@@ -26,16 +26,6 @@ jobs:
   - put: sql-image-repo
     params:
       build: concourse-images/task/sql-image
-- name: s3-resource-simple-image
-  plan:
-    - get: alpine-image
-      params:
-        skip_download: true
-      trigger: true
-    - get: s3-resource-simple
-    - put: s3-resource-simple-repo
-      params:
-        build: s3-resource-simple
 
 - name: s3-resource-simple-image
   plan:
