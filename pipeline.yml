@@ -13,7 +13,7 @@ jobs:
     trigger: true
   - put: oracle-image-repository
     params:
-      build: oracle-image-git-repository/OracleInstantClient/dockerfiles/19
+      build: oracle-image-git-repository/OracleInstantClient/oraclelinux7/19
 - name: update-sql-client-image
   plan:
   - in_parallel:
