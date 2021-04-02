@@ -130,40 +130,9 @@ rm -rf bosh-lint
 apt-get clean
 rm -rf /var/cache/apt
 
-echo "Installing Terraform cloudfoundry provider version ${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}"
-TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
-mkdir -p $(dirname $TARGET)
-curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
-chmod 755 ${TARGET}
-
-echo "Installing Terraform PowerDNS provider"
-
-export GOPATH=$HOME/go
-PROVIDERS=/root/.terraform.d/providers
-
-# TODO: Revert after patches are accepted upstream
-go get -d github.com/18F/terraform-provider-powerdns
-mkdir -p $GOPATH/src/github.com/terraform-providers
-rm -rf $GOPATH/src/github.com/terraform-providers/terraform-provider-powerdns
-mv $GOPATH/src/github.com/18F/terraform-provider-powerdns $GOPATH/src/github.com/terraform-providers
-pushd $GOPATH/src/github.com/terraform-providers/terraform-provider-powerdns
-  go build
-  mkdir -p "${PROVIDERS}"
-  cp terraform-provider-powerdns "${PROVIDERS}"
-popd
-
-TARGET="/root/.terraform.d/providers/terraform-provider-cloudfoundry"
-mkdir -p $(dirname $TARGET)
-curl -L https://github.com/orange-cloudfoundry/terraform-provider-cloudfoundry/releases/download/${TERRAFORM_CF_PROVIDER_RELEASE_VERSION}/terraform-provider-cloudfoundry_0.9_linux_amd64 > ${TARGET}
-chmod 755 ${TARGET}
-
-cat <<EOF >> ~/.terraformrc
-providers {
-  cloudfoundry = "${TARGET}"
-  powerdns = "${PROVIDERS}/terraform-provider-powerdns"
-}
-
-EOF
+# Need this installed until we get to terraform 13
+echo "Installing Terraform cloudfoundry provider"
+bash -c "$(wget https://raw.github.com/cloudfoundry-community/terraform-provider-cloudfoundry/master/bin/install.sh -O -)"
 
 echo "Installing Bats BASH testing framework"
 git clone https://github.com/sstephenson/bats.git /tmp/bats-repo
