@@ -53,7 +53,6 @@ test_package zlibc
 # Test installed commands
 #
 echo "3. Testing installed commands"
-test_command /root/.terraform.d/plugins/linux_amd64/terraform-provider-cloudfoundry_v0.12.3 "These are not meant to be executed directly"
 test_command bats "$BATS_CMD_VERSION"
 test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
 test_command cf "$CF_CMD_VERSION"
