@@ -130,6 +130,10 @@ rm -rf bosh-lint
 apt-get clean
 rm -rf /var/cache/apt
 
+echo "Installing Terraform credhub provider"
+export PROVIDER_CREDHUB_VERSION="v0.13.3"
+bash -c "$(wget https://raw.github.com/orange-cloudfoundry/terraform-provider-credhub/master/bin/install.sh -O -)"
+
 echo "Installing Bats BASH testing framework"
 git clone https://github.com/sstephenson/bats.git /tmp/bats-repo
 pushd /tmp/bats-repo
