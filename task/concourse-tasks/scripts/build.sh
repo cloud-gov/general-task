@@ -130,14 +130,6 @@ rm -rf bosh-lint
 apt-get clean
 rm -rf /var/cache/apt
 
-echo "Installing Terraform credhub provider version ${TERRAFORM_CREDHUB_PROVIDER_VERSION}"
-TARGET="$HOME/.terraform-providers/local/providers/credhub/${TERRAFORM_CREDHUB_PROVIDER_VERSION}/${TERRAFORM_CREDHUB_PROVIDER_PLATFORM}//terraform-provider-credhub"
-REPOSITORY="https://github.com/orange-cloudfoundry/terraform-provider-credhub"
-RELEASE="/releases/download/v${TERRAFORM_CREDHUB_PROVIDER_VERSION}/terraform-provider-credhub_${TERRAFORM_CREDHUB_PROVIDER_PLATFORM}"
-mkdir -p $(dirname $TARGET)
-curl -L "${REPOSITORY}${RELEASE}" > "${TARGET}"
-chmod 755 ${TARGET}
-
 echo "Configuring TF CLI local provider_installation"
 cat <<EOF >> ~/.terraformrc
 provider_installation {
