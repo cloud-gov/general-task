@@ -142,7 +142,7 @@ echo "Configuring TF CLI local provider_installation"
 cat <<EOF >> ~/.terraformrc
 provider_installation {
   filesystem_mirror {
-    path    = "~/.terraform-providers/"
+    path    = "$HOME/.terraform-providers/"
     include = ["local/providers/*"]
   }
   direct {

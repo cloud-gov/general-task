@@ -30,7 +30,7 @@ terraform {
   required_providers {
     credhub = {
       version = "0.13.3"
-      source  = "/local/providers/credhub"
+      source  = "local/providers/credhub"
     }
   }
 }
