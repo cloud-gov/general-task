@@ -159,3 +159,6 @@ echo "Installing new UAA client."
 wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/uaa-linux-amd64-0.10.0
 mv uaa-linux-amd64-0.10.0 /usr/bin/uaa
 chmod a+x /usr/bin/uaa
+
+echo "Installing grype cli"
+curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
