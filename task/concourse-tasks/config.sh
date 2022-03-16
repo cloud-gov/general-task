@@ -17,7 +17,6 @@ CREDHUB_CLI_RELEASE_VERSION=2.8.0
 # check https://github.com/cloudfoundry/bosh-cli/issues/570 for details
 BOSH_CLI_V2_RELEASE_VERSION=6.1.1
 UAAC_CLI_RELEASE_VERSION=4.2.0
-CONCOURSE_CLI_RELEASE_VERSION=7.3.2
 
 #
 # Command versions (only for testing purposes)
