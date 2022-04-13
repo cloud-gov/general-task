@@ -7,6 +7,8 @@ jobs:
   - put: concourse-tasks-image-repo
     params:
       build: concourse-images/task/concourse-tasks
+      tag_file: concourse-images/VERSION
+      tag_as_latest: true
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
