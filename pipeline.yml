@@ -4,11 +4,15 @@ jobs:
   plan:
   - get: concourse-images
     trigger: true
+  - get: concourse-image-version
+    params: {bump: patch}
   - put: concourse-tasks-image-repo
     params:
       build: concourse-images/task/concourse-tasks
-      tag_file: concourse-images/VERSION
+      tag_file: {file: concourse-image-version/VERSION}
       tag_as_latest: true
+  - put: concourse-image-version
+    params: {file: concourse-image-version/VERSION}
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
@@ -46,6 +50,8 @@ resources:
   source:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
+    ignore_paths:
+    - VERSION
 
 - name: sql-image-repo
   type: docker-image
@@ -95,3 +101,11 @@ resources:
   type: docker-image
   source:
     repository: alpine
+
+- name: concourse-image-version
+  type: semver
+  source:
+    driver: git
+    uri: {{concourse-task-image-git-url}}
+    branch: {{concourse-task-image-git-branch}}
+    file: VERSION
