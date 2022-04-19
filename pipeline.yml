@@ -50,8 +50,6 @@ resources:
   source:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
-    ignore_paths:
-    - VERSION
 
 - name: sql-image-repo
   type: docker-image
