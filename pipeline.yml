@@ -9,10 +9,10 @@ jobs:
   - put: concourse-tasks-image-repo
     params:
       build: concourse-images/task/concourse-tasks
-      tag_file: {file: concourse-image-version/VERSION}
+      tag_file: {file: concourse-image-version/concourse-docker-image-version}
       tag_as_latest: true
   - put: concourse-image-version
-    params: {file: concourse-image-version/VERSION}
+    params: {file: concourse-image-version/concourse-docker-image-version}
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
@@ -105,7 +105,8 @@ resources:
 - name: concourse-image-version
   type: semver
   source:
-    driver: git
-    uri: {{concourse-task-image-git-url}}
-    branch: {{concourse-task-image-git-branch}}
-    file: VERSION
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: concourse-docker-image-version
+    region-name: {{aws-region}}
+    initial_version: 1.0.0
