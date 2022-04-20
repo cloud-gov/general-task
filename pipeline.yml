@@ -9,10 +9,10 @@ jobs:
   - put: concourse-tasks-image-repo
     params:
       build: concourse-images/task/concourse-tasks
-      tag_file: {file: concourse-image-version/concourse-docker-image-version}
+      tag_file: concourse-image-version/version
       tag_as_latest: true
   - put: concourse-image-version
-    params: {file: concourse-image-version/concourse-docker-image-version}
+    params: {file: concourse-image-version/version}
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
