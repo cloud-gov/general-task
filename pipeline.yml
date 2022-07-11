@@ -17,9 +17,15 @@ jobs:
   plan:
   - get: oracle-image-git-repository
     trigger: true
+  - get: oracle-image-version
+    params: {bump: patch}
   - put: oracle-image-repository
     params:
       build: oracle-image-git-repository/OracleInstantClient/oraclelinux7/19
+      tag_file: oracle-image-version/version
+      tag_as_latest: true
+  - put: oracle-image-version
+    params: {file: oracle-image-version/version}
 - name: update-sql-client-image
   plan:
   - in_parallel:
@@ -29,9 +35,15 @@ jobs:
       - get: oracle-image-repository
         passed: [update-oracle-image-task]
         trigger: true
+  - get: sql-client-image-version
+    params: {bump: patch}
   - put: sql-image-repo
     params:
       build: concourse-images/task/sql-image
+      tag_file: sql-client-image-version/version
+      tag_as_latest: true
+  - put: sql-client-image-version
+    params: {file: sql-client-image-version/version}
 
 - name: s3-resource-simple-image
   plan:
@@ -40,9 +52,15 @@ jobs:
         skip_download: true
       trigger: true
     - get: s3-resource-simple-repository
+    - get: s3-image-version
+      params: {bump: patch}
     - put: s3-resource-simple-repo
       params:
         build: s3-resource-simple-repository
+        tag_file: s3-image-version/version
+        tag_as_latest: true
+    - put: s3-image-version
+      params: {file: s3-image-version/version}
 
 resources:
 - name: concourse-images
@@ -108,6 +126,39 @@ resources:
     driver: s3
     bucket: {{semver-bucket}}
     key: concourse-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
+
+- name: s3-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: s3-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.2.0
+
+- name: oracle-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: oracle-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
+
+- name: sql-client-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: sql-client-docker-image-version
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
