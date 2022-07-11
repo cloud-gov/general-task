@@ -148,9 +148,9 @@ popd
 rm -rf /tmp/bats-repo
 
 echo "Installing Doomsday CLI"
-wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux
-chmod a+x doomsday-linux
-mv ./doomsday-linux /usr/bin/doomsday
+wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux-amd64
+chmod a+x doomsday-linux-amd64
+mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
 echo "Installing new UAA client."
 wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/uaa-linux-amd64-0.10.0
