@@ -50,6 +50,7 @@ resources:
   source:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
+    commit_verification_keys: ((cloud-gov-pgp-keys))
 
 - name: sql-image-repo
   type: docker-image
@@ -86,6 +87,7 @@ resources:
   source:
     uri: {{s3-resource-simple-git-repository}}
     branch: {{s3-resource-simple-git-repository-branch}}
+    commit_verification_keys: ((cloud-gov-pgp-keys))
 
 - name: s3-resource-simple-repo
   type: docker-image
