@@ -48,21 +48,38 @@ apt-get -y install \
   postgresql-client-common \
   python3-openssl \
   python3-pip \
-  rake \
-  ruby \
-  ruby-dev \
   sqlite3 \
   unzip \
   vim \
   whois \
   yq \
   zlibc \
+  # libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev
+
+# pushd $HOME/.rbenv/plugins/ruby-build
+#   git pull
+# popd
+
+# Install rbenv
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+
+# shellcheck disable=SC2016
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "$HOME/.bashrc"
+# shellcheck disable=SC2016
+echo 'eval "$(rbenv init -)"' >> "$HOME/.bashrc"
+
+# Install and enable Ruby via rbenv
+$HOME/.rbenv/bin/rbenv init -
+$HOME/.rbenv/bin/rbenv install "${RUBY_RELEASE_VERSION}"
+$HOME/.rbenv/bin/rbenv global "${RUBY_RELEASE_VERSION}"
+$HOME/.rbenv/bin/rbenv rehash
+eval "$($HOME/.rbenv/bin/rbenv init - bash)"
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # Set default versions of ruby and gem to 2.0 versions
 # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
-gem install bundler --no-ri --no-rdoc
+gem install bundler --no-document
 
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
@@ -99,7 +116,7 @@ curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 echo "Installing uaac"
-gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
+gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-document
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
