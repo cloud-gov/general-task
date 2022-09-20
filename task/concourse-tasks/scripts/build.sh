@@ -56,24 +56,20 @@ apt-get -y install \
   zlibc \
   # libssl-dev libreadline-dev zlib1g-dev autoconf bison build-essential libyaml-dev libreadline-dev libncurses5-dev libffi-dev libgdbm-dev
 
-# pushd $HOME/.rbenv/plugins/ruby-build
-#   git pull
-# popd
-
 # Install rbenv
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
-
 # shellcheck disable=SC2016
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "$HOME/.bashrc"
 # shellcheck disable=SC2016
 echo 'eval "$(rbenv init -)"' >> "$HOME/.bashrc"
 
 # Install and enable Ruby via rbenv
-$HOME/.rbenv/bin/rbenv init -
-$HOME/.rbenv/bin/rbenv install "${RUBY_RELEASE_VERSION}"
-$HOME/.rbenv/bin/rbenv global "${RUBY_RELEASE_VERSION}"
-$HOME/.rbenv/bin/rbenv rehash
-eval "$($HOME/.rbenv/bin/rbenv init - bash)"
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+rbenv init - bash
+rbenv install "${RUBY_RELEASE_VERSION}"
+rbenv global "${RUBY_RELEASE_VERSION}"
+eval "$(rbenv init - bash)"
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # Set default versions of ruby and gem to 2.0 versions
