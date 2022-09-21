@@ -48,9 +48,6 @@ apt-get -y install \
   postgresql-client-common \
   python3-openssl \
   python3-pip \
-  rake \
-  ruby \
-  ruby-dev \
   sqlite3 \
   unzip \
   vim \
@@ -58,11 +55,35 @@ apt-get -y install \
   yq \
   zlibc \
 
+# Install rbenv
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+
+# Prepare shell integration
+RBENV_SCRIPT=$HOME/rbenv.sh
+# shellcheck disable=SC2016
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $RBENV_SCRIPT
+# shellcheck disable=SC2016
+echo 'eval "$(rbenv init -)"' >> $RBENV_SCRIPT
+cat $RBENV_SCRIPT >> "$HOME/.bashrc"
+
+# Ensure rbenv and Ruby are in the PATH
+# Cannot source .bashrc from non-interactive shell
+source $RBENV_SCRIPT
+
+# Install and enable Ruby via rbenv
+rbenv install "${RUBY_RELEASE_VERSION}"
+rbenv global "${RUBY_RELEASE_VERSION}"
+
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # Set default versions of ruby and gem to 2.0 versions
 # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
 # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
-gem install bundler --no-ri --no-rdoc
+
+# Install Bundler
+gem install bundler --no-document
+
+# Install Rake
+gem install rake -v "${RAKE_RELEASE_VERSION}" --no-document
 
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
@@ -99,7 +120,7 @@ curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download
 
 # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 echo "Installing uaac"
-gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-ri --no-rdoc
+gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-document
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"

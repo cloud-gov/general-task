@@ -5,6 +5,9 @@
 #
 source ./config.sh
 
+# Ensure that Ruby is in the path
+source $HOME/rbenv.sh
+
 #
 # Source library functions
 #
@@ -40,9 +43,6 @@ test_package libxslt1-dev
 test_package libyaml-dev
 test_package openssl
 test_package python3-pip
-test_package rake
-test_package ruby
-test_package ruby-dev
 test_package sqlite3
 test_package unzip
 test_package yq
