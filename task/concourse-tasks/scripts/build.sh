@@ -57,15 +57,20 @@ apt-get -y install \
 
 # Install rbenv
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+
+# Prepare shell integration
+RBENV_SCRIPT=$HOME/rbenv.sh
 # shellcheck disable=SC2016
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "$HOME/.bashrc"
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $RBENV_SCRIPT
 # shellcheck disable=SC2016
-echo 'eval "$(rbenv init -)"' >> "$HOME/.bashrc"
+echo 'eval "$(rbenv init -)"' >> $RBENV_SCRIPT
+cat $RBENV_SCRIPT >> "$HOME/.bashrc"
+
+# Ensure rbenv and Ruby are in the PATH
+# Cannot source .bashrc from non-interactive shell
+source $RBENV_SCRIPT
 
 # Install and enable Ruby via rbenv
-export PATH="$HOME/.rbenv/shims:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
-rbenv init - bash
 rbenv install "${RUBY_RELEASE_VERSION}"
 rbenv global "${RUBY_RELEASE_VERSION}"
 

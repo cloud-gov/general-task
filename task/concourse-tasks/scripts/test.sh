@@ -5,6 +5,9 @@
 #
 source ./config.sh
 
+# Ensure that Ruby is in the path
+source $HOME/rbenv.sh
+
 #
 # Source library functions
 #
