@@ -56,9 +56,9 @@ apt-get -y install \
   zlibc \
 
 # Install Ruby from source
-wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.6.tar.gz
-tar xvaf ruby-2.7.6.tar.gz
-pushd ruby-2.7.6
+wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure
   make
   make install
