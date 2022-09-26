@@ -55,29 +55,19 @@ apt-get -y install \
   yq \
   zlibc \
 
-# Install rbenv
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
+# Install Ruby from source
+wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.6.tar.gz
+tar xvaf ruby-2.7.6.tar.gz
+pushd ruby-2.7.6
+  ./configure
+  make
+  make install
+popd
 
-# Prepare shell integration
-RBENV_SCRIPT=$HOME/rbenv.sh
-# shellcheck disable=SC2016
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $RBENV_SCRIPT
-# shellcheck disable=SC2016
-echo 'eval "$(rbenv init -)"' >> $RBENV_SCRIPT
-cat $RBENV_SCRIPT >> "$HOME/.bashrc"
-
-# Ensure rbenv and Ruby are in the PATH
-# Cannot source .bashrc from non-interactive shell
-source $RBENV_SCRIPT
-
-# Install and enable Ruby via rbenv
-rbenv install "${RUBY_RELEASE_VERSION}"
-rbenv global "${RUBY_RELEASE_VERSION}"
-
-# Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
-# # Set default versions of ruby and gem to 2.0 versions
-# update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
-# update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+# # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
+# # # Set default versions of ruby and gem to 2.0 versions
+# # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
+# # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
 
 # Install Bundler
 gem install bundler --no-document
