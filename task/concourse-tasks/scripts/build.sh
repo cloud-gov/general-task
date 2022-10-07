@@ -63,6 +63,7 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
   make
   make install
 popd
+rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 
 # # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # # Set default versions of ruby and gem to 2.0 versions
