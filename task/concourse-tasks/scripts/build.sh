@@ -11,8 +11,8 @@ echo "Configuring ua attach config"
 cat <<EOF >> ua-attach-config.yaml
 token: $TOKEN
 enable_services:
-  - cis
-  - esm-infra
+- cis
+- esm-infra
 
 EOF
 
@@ -25,10 +25,6 @@ apt-get -y -q install \
   ubuntu-advantage-tools ca-certificates \
   tzdata \
   wget \
-
-echo "UA attaching"
-env
-ua attach --attach-config ua-attach-config.yaml
 
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
@@ -69,10 +65,8 @@ apt-get -y install \
   yq \
   zlibc \
 
-echo "Cleaning up ua"
-apt-get purge --auto-remove -y \
-  ubuntu-advantage-tools ca-certificates && \
-  rm -rf /var/lib/apt/lists/*
+echo "UA attaching"
+ua attach --attach-config ua-attach-config.yaml
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -83,6 +77,11 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
   make install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+
+echo "Cleaning up ua"
+apt-get purge --auto-remove -y \
+  ubuntu-advantage-tools ca-certificates && \
+  rm -rf /var/lib/apt/lists/*
 
 # # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # # Set default versions of ruby and gem to 2.0 versions
