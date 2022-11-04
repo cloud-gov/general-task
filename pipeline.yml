@@ -78,14 +78,17 @@ jobs:
           repository: concourse/oci-build-task
       inputs:
       - name: harden-concourse-images
-        path: task/concourse-tasks
+        path: .
       outputs:
-      - name: images
+      - name: image
       run:
         path: build
+      params:
+        TOKEN: ((ua-token))
+        CONTEXT: task/concourse-tasks/
   - put: ecr-harden-concourse-task
     params:
-      image: images/image.tar
+      image: image/image.tar
       additional_tags: harden-concourse-image-version/version
   - put: harden-concourse-image-version
     params: {file: harden-concourse-image-version/version}
