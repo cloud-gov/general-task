@@ -78,10 +78,7 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 
-echo "Cleaning up ua"
-apt-get purge --auto-remove -y \
-  ubuntu-advantage-tools ca-certificates && \
-  rm -rf /var/lib/apt/lists/*
+
 
 # # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # # Set default versions of ruby and gem to 2.0 versions
@@ -189,3 +186,8 @@ chmod a+x /usr/bin/uaa
 
 echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+echo "Cleaning up ua"
+apt-get purge --auto-remove -y \
+  ubuntu-advantage-tools && \
+  rm -rf /var/lib/apt/lists/*
