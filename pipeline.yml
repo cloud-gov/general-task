@@ -61,6 +61,34 @@ jobs:
         tag_as_latest: true
     - put: s3-image-version
       params: {file: s3-image-version/version}
+    
+- name: update-harden-concourse-task-image
+  plan:
+  - get: harden-concourse-images
+    trigger: true
+  - get: harden-concourse-image-version
+    params: {bump: patch}
+  - task: build
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      inputs:
+      - name: harden-concourse-images
+        path: task/concourse-tasks
+      outputs:
+      - name: images
+      run:
+        path: build
+  - put: ecr-harden-concourse-task
+    params:
+      image: images/image.tar
+      additional_tags: harden-concourse-image-version/version
+  - put: harden-concourse-image-version
+    params: {file: harden-concourse-image-version/version}
 
 resources:
 - name: concourse-images
@@ -69,6 +97,21 @@ resources:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
     commit_verification_keys: ((cloud-gov-pgp-keys))
+
+- name: harden-concourse-images
+  type: git
+  source:
+    uri: {{concourse-task-image-git-url}}
+    branch: ua-cis
+
+- name: ecr-harden-concourse-task
+  type: registry-image
+  source:
+    aws_access_key_id: ((aws-key))
+    aws_secret_access_key: ((aws-secret))
+    repository: harden-concourse-task
+    aws_region: us-gov-west-1
+    semver_constraint: ">= 1.0.0"
 
 - name: sql-image-repo
   type: docker-image
@@ -126,6 +169,17 @@ resources:
     driver: s3
     bucket: {{semver-bucket}}
     key: concourse-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
+
+- name: harden-concourse-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: harden-concourse-docker-image-version
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
