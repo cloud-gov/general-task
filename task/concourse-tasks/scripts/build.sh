@@ -27,7 +27,7 @@ apt-get -y -q install \
   wget \
 
 echo "UA attaching"
-cat ua-attach-config.yaml
+env
 ua attach --attach-config ua-attach-config.yaml
 
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
