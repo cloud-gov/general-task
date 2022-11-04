@@ -84,7 +84,7 @@ jobs:
       run:
         path: build
       params:
-        TOKEN: ((ua-token))
+        BUILD_ARG_TOKEN: ((ua-token))
         CONTEXT: task/concourse-tasks/
   - put: ecr-harden-concourse-task
     params:
