@@ -47,10 +47,6 @@ jobs:
 
 - name: s3-resource-simple-image
   plan:
-    - get: alpine-image
-      params:
-        skip_download: true
-      trigger: true
     - get: s3-resource-simple-repository
     - get: s3-image-version
       params: {bump: patch}
@@ -114,11 +110,6 @@ resources:
     username: {{docker-username}}
     password: {{docker-password}}
     repository: {{s3-resource-simple-image-repository}}
-
-- name: alpine-image
-  type: docker-image
-  source:
-    repository: alpine
 
 - name: concourse-image-version
   type: semver
