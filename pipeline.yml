@@ -93,6 +93,28 @@ jobs:
   - put: harden-concourse-image-version
     params: {file: harden-concourse-image-version/version}
 
+- name: harden-container-bosh-development
+  plan:
+  - get: ecr-harden-concourse-task
+  - task: jumpbox
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          aws_access_key_id: ((aws-key))
+          aws_secret_access_key: ((aws-secret))
+          repository: harden-concourse-task
+          aws_region: us-gov-west-1
+          semver_constraint: ">= 1.0.0"
+      run:
+        path: sh
+        args:
+        - exit 1
+      params:
+        BOSH_DIRECTOR_NAME: development
+        PROMPT_COLOR: "6" # cyan
+
 resources:
 - name: concourse-images
   type: git
