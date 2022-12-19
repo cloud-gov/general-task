@@ -13,6 +13,7 @@ jobs:
       tag_as_latest: true
   - put: concourse-image-version
     params: {file: concourse-image-version/version}
+
 - name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
@@ -26,6 +27,7 @@ jobs:
       tag_as_latest: true
   - put: oracle-image-version
     params: {file: oracle-image-version/version}
+
 - name: update-sql-client-image
   plan:
   - in_parallel:
@@ -93,6 +95,36 @@ jobs:
   - put: harden-concourse-image-version
     params: {file: harden-concourse-image-version/version}
 
+- name: update-harden-oracle-image-task
+  plan:
+  - get: harden-concourse-images
+    trigger: true
+  - get: harden-oracle-image-version
+    params: {bump: patch}
+  - task: build
+    privileged: true
+    config:
+      platform: linux
+      image_resource: registry-image
+      source:
+        repository: concourse/oci-build-task
+      inputs:
+      - name: harden-concourse-images
+        path: .
+      outputs:
+      - name: image
+      run:
+        path: build
+      params:
+        BUILD_ARG_TOKEN: ((ua-token))
+        CONTEXT: task/concourse-tasks/
+  - put: ecr-harden-oracle-image-task
+    params:
+      image: image/image.tar
+      additional_tags: harden-oracle-image-version/version
+  - put: harden-oracle-image-version
+    params: {file: harden-oracle-image-version/version}
+
 - name: harden-container-bosh-development
   plan:
   - get: ecr-harden-concourse-task
@@ -137,6 +169,15 @@ resources:
     repository: harden-concourse-task
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
+
+- name: ecr-harden-oracle-image-task
+  type: registry-image
+  source:
+    aws_access_key_id: ((aws-key))
+    aws_secret_access_key: ((aws-secret))
+    repository: harden-oracle-image-task
+    aws_region: us-gov-west-1
+    semver_contraint: ">= 1.0.0"
 
 - name: sql-image-repo
   type: docker-image
@@ -205,6 +246,17 @@ resources:
     driver: s3
     bucket: {{semver-bucket}}
     key: harden-concourse-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
+
+- name: harden-oracle-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: harden-oracle-docker-image-version
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
