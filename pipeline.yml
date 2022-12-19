@@ -105,9 +105,10 @@ jobs:
     privileged: true
     config:
       platform: linux
-      image_resource: registry-image
-      source:
-        repository: concourse/oci-build-task
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
       inputs:
       - name: harden-concourse-images
         path: .
