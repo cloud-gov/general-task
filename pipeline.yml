@@ -178,7 +178,7 @@ resources:
     aws_secret_access_key: ((aws-secret))
     repository: harden-oracle-image-task
     aws_region: us-gov-west-1
-    semver_contraint: ">= 1.0.0"
+    semver_constraint: ">= 1.0.0"
 
 - name: sql-image-repo
   type: docker-image
