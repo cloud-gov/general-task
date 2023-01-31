@@ -221,7 +221,7 @@ resources:
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
-    branch: ua-cis
+    branch: {{concourse-task-image-git-branch}}
 
 - name: ecr-harden-concourse-task
   type: registry-image
