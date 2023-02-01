@@ -91,6 +91,38 @@ jobs:
   - put: harden-concourse-image-version
     params: {file: harden-concourse-image-version/version}
 
+- name: update-harden-s3-resource-simple-image
+  plan:
+  - get: s3-resource-simple-repository
+  - get: harden-concourse-images
+    trigger: true
+  - get: harden-s3-resource-simple-image-version
+    params: {bump: patch}
+  - task: build
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      inputs:
+      - name: harden-concourse-images
+        path: .
+      outputs:
+      - name: image
+      run:
+        path: build
+      params:
+        BUILD_ARG_TOKEN: ((ua-token))
+        CONTEXT: task/s3-resource-simple/
+  - put: ecr-harden-s3-resource-simple
+    params:
+      image: image/image.tar
+      additional_tags: harden-s3-resource-simple-image-version/version
+  - put: harden-s3-resource-simple-image-version
+    params: {file: harden-s3-resource-simple-image-version/version}
+
 - name: harden-container-bosh-development
   plan:
   - get: ecr-harden-concourse-task
@@ -125,7 +157,7 @@ resources:
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
-    branch: {{concourse-task-image-git-branch}}
+    branch: remove-container-hardening
 
 - name: ecr-harden-concourse-task
   type: registry-image
@@ -133,6 +165,15 @@ resources:
     aws_access_key_id: ((aws-key))
     aws_secret_access_key: ((aws-secret))
     repository: harden-concourse-task
+    aws_region: us-gov-west-1
+    semver_constraint: ">= 1.0.0"
+
+- name: ecr-harden-s3-resource-simple
+  type: registry-image
+  source:
+    aws_access_key_id: ((aws-key))
+    aws_secret_access_key: ((aws-secret))
+    repository: harden-s3-resource-simple
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
 
@@ -198,6 +239,17 @@ resources:
     driver: s3
     bucket: {{semver-bucket}}
     key: harden-concourse-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
+
+- name: harden-s3-resource-simple-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: harden-s3-resource-simple-image-version
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
