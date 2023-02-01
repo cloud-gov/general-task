@@ -2,11 +2,6 @@
 
 set -e
 
-#
-# Source configuration environment variables
-#
-source ./config.sh
-
 echo "Configuring ua attach config"
 cat <<EOF >> ua-attach-config.yaml
 token: $TOKEN
