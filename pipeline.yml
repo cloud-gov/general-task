@@ -83,7 +83,7 @@ jobs:
         path: build
       params:
         BUILD_ARG_TOKEN: ((ua-token))
-        CONTEXT: task/concourse-tasks/
+        CONTEXT: task/harden-concourse-tasks/
   - put: ecr-harden-concourse-task
     params:
       image: image/image.tar
