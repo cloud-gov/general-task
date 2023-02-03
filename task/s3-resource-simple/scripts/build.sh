@@ -15,10 +15,12 @@ apt-get update
 apt-get -y -q install \
   ubuntu-advantage-tools ca-certificates \
   curl \
-  usg \
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
+
+apt-get -y -q install \
+  curl \
 
 echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
