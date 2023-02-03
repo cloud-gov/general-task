@@ -7,12 +7,22 @@ set -e
 #
 source ./config.sh
 
+echo "Configuring ua attach config"
+cat <<EOF >> ua-attach-config.yaml
+token: $TOKEN
+enable_services:
+- usg
+- esm-infra
+
+EOF
+
 # Install current postgres
 apt-get update
 apt-get -y -q install \
   gnupg2 \
   lsb-release \
   software-properties-common \
+  ubuntu-advantage-tools ca-certificates \
   tzdata \
   wget \
 
@@ -54,6 +64,9 @@ apt-get -y install \
   whois \
   yq \
   zlibc \
+
+echo "UA attaching"
+ua attach --attach-config ua-attach-config.yaml
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -173,3 +186,11 @@ chmod a+x /usr/bin/uaa
 
 echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+echo "UA hardening"
+usg fix cis_level1_server
+
+echo "Cleaning up ua"
+apt-get purge --auto-remove -y \
+  ubuntu-advantage-tools && \
+  rm -rf /var/lib/apt/lists/*
