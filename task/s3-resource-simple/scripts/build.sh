@@ -15,6 +15,7 @@ apt-get update
 apt-get -y -q install \
   ubuntu-advantage-tools ca-certificates \
   curl \
+  usg \
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
