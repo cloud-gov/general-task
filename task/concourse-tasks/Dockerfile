@@ -4,7 +4,7 @@
 # TO_BUILD:       docker build -t local/task .
 # TO_RUN:         docker run local/task echo "Hello World!"
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Copy local project directories to container image
 COPY . /opt/concourse-ci/task
