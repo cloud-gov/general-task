@@ -16,6 +16,9 @@ enable_services:
 
 EOF
 
+echo "Updating system timezone"
+ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
+
 apt-get update
 apt-get -y -q install \
   gnupg2 \
@@ -24,9 +27,6 @@ apt-get -y -q install \
   ubuntu-advantage-tools ca-certificates \
   tzdata \
   wget \
-
-echo "Updating system timezone"
-ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
