@@ -18,8 +18,10 @@ EOF
 
 apt-get update
 apt-get -y -q install \
+  gnupg2 \
+  lsb-release \
+  software-properties-common \
   ubuntu-advantage-tools ca-certificates \
-  curl \
   tzdata \
   wget \
 
