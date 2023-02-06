@@ -21,12 +21,8 @@ ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
 apt-get update
 apt-get -y -q install \
-  gnupg2 \
-  lsb-release \
-  software-properties-common \
   ubuntu-advantage-tools ca-certificates \
   tzdata \
-  wget \
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
