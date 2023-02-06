@@ -24,6 +24,9 @@ apt-get -y -q install \
   ubuntu-advantage-tools ca-certificates \
   tzdata \
 
+echo "Updating system timezone"
+ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
+
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
 
