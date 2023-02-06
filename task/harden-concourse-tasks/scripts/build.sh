@@ -37,7 +37,7 @@ add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
 echo "Installing basic libraries and development utilities"
-apt-get -y install \
+apt-get -y -q install \
   build-essential \
   cmake \
   curl \
