@@ -68,6 +68,9 @@ apt-get -y -q install \
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
 
+apt-get -y -q install \
+  usg \
+
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
