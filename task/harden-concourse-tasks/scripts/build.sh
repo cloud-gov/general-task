@@ -58,6 +58,7 @@ apt-get -y -q install \
   postgresql-client-common \
   python3-openssl \
   python3-pip \
+  python3-yaml \
   sqlite3 \
   unzip \
   vim \
@@ -195,6 +196,6 @@ echo "UA hardening"
 usg fix cis_level1_server
 
 echo "Cleaning up ua"
-apt-get purge --auto-remove -y \
+apt-get purge --auto-clean -y \
   ubuntu-advantage-tools && \
   rm -rf /var/lib/apt/lists/*
