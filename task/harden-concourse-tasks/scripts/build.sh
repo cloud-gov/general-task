@@ -58,6 +58,7 @@ apt-get -y -q install \
   postgresql-client-common \
   python3-openssl \
   python3-pip \
+  python3-yaml \
   sqlite3 \
   unzip \
   vim \
