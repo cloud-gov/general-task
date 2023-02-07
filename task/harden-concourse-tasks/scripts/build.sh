@@ -103,6 +103,7 @@ curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/j
 chmod +x /usr/local/bin/jq
 
 echo "Installing awscli"
+pip3 install pyyaml
 pip3 install awscli
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
