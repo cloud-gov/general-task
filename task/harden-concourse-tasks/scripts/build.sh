@@ -161,8 +161,8 @@ export GOROOT=/goroot
 export PATH=$GOROOT/bin:$PATH
 
 # update go libraries
-go get -U github.com/Masterminds/goutils
-go get -U github.com/gorilla/websocket
+go get -u github.com/Masterminds/goutils
+go get -u github.com/gorilla/websocket
 
 git clone https://github.com/cppforlife/bosh-lint
 pushd bosh-lint
