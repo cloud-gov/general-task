@@ -114,7 +114,6 @@ curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/j
 chmod +x /usr/local/bin/jq
 
 echo "Installing awscli"
-pip3 install pyyaml
 pip3 install awscli
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
@@ -156,10 +155,6 @@ curl https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar xvzf -
 
 export GOROOT=/goroot
 export PATH=$GOROOT/bin:$PATH
-
-# update go libraries
-go get -u github.com/Masterminds/goutils
-go get -u github.com/gorilla/websocket
 
 git clone https://github.com/cppforlife/bosh-lint
 pushd bosh-lint
