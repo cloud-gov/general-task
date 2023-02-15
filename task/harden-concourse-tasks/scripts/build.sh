@@ -117,9 +117,6 @@ echo "Installing awscli"
 pip3 install pyyaml
 pip3 install awscli
 
-echo "Update python packages"
-pip3 install -U setuptools wheel urllib3
-
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
