@@ -65,6 +65,7 @@ apt-get -y -q install \
   whois \
   yq \
   zlibc \
+  rsync \
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
@@ -90,10 +91,19 @@ rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 # # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
 
 # Install Bundler
-gem install bundler --no-document
+gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
 
 # Install Rake
 gem install rake -v "${RAKE_RELEASE_VERSION}" --no-document
+
+# Install RDoc
+gem install rdoc -v "${RDOC_RELEASE_VERSION}"
+
+# Install CGI
+gem install cgi -v "${CGI_RELEASE_VERSION}"
+
+# Install Rexml
+gem install rexml -v "${REXML_RELEASE_VERSION}"
 
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
@@ -104,7 +114,6 @@ curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/j
 chmod +x /usr/local/bin/jq
 
 echo "Installing awscli"
-pip3 install pyyaml
 pip3 install awscli
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
