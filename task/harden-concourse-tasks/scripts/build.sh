@@ -53,6 +53,7 @@ apt-get -y -q install \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
+  npm \
   openssl \
   postgresql-client \
   postgresql-client-common \
