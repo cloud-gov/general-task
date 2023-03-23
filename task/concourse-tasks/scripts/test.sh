@@ -37,7 +37,6 @@ test_package libssl-dev
 test_package libxml2-dev
 test_package libxslt1-dev
 test_package libyaml-dev
-test_package npm
 test_package openssl
 test_package python3-pip
 test_package sqlite3
