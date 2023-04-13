@@ -156,16 +156,6 @@ tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
-echo "Installing bosh-lint"
-git clone https://github.com/cppforlife/bosh-lint
-pushd bosh-lint
-  source .envrc
-  ./bin/build
-  mv out/bosh-ext /usr/local/bin/bosh-ext
-popd
-ln -s /usr/local/bin/bosh-ext /usr/local/bin/bosh-lint
-rm -rf bosh-lint
-
 apt-get clean
 rm -rf /var/cache/apt
 
