@@ -36,7 +36,7 @@ echo "Updating system package registry"
 add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
-echo "Installing basic libraries and development utilities"
+# echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
   build-essential \
   cmake \
@@ -83,8 +83,6 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
   make install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
-
-
 
 # # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # # Set default versions of ruby and gem to 2.0 versions
@@ -155,6 +153,8 @@ mkdir -p /usr/local/go
 tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+
+go env -w GOBIN=/usr/local/bin
 
 apt-get clean
 rm -rf /var/cache/apt
