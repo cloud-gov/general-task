@@ -149,22 +149,12 @@ chmod +x /usr/local/bin/bosh
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh2
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh-cli
 
-# todo (mxplusb): update to current version of go
-echo "Installing bosh-lint"
-mkdir -p /goroot
-curl https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz | tar xvzf - -C /goroot --strip-components=1
-
-export GOROOT=/goroot
-export PATH=$GOROOT/bin:$PATH
-
-git clone https://github.com/cppforlife/bosh-lint
-pushd bosh-lint
-  source .envrc
-  ./bin/build
-  mv out/bosh-ext /usr/local/bin/bosh-ext
-popd
-ln -s /usr/local/bin/bosh-ext /usr/local/bin/bosh-lint
-rm -rf bosh-lint
+echo "Installing Go"
+curl -OL "https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz"
+mkdir -p /usr/local/go
+tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
+ln -s /usr/local/go/bin/go /usr/local/bin/go
+ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
 apt-get clean
 rm -rf /var/cache/apt
