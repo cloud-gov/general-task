@@ -64,3 +64,4 @@ test_command spruce "$SPRUCE_RELEASE_VERSION"
 test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
+test_command go "$GO_CMD_VERSION" version
