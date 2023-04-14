@@ -36,7 +36,7 @@ echo "Updating system package registry"
 add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
-# echo "Installing basic libraries and development utilities"
+echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
   build-essential \
   cmake \
