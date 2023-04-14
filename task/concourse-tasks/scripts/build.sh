@@ -54,6 +54,7 @@ apt-get -y install \
   whois \
   yq \
   zlibc \
+  libc6
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -126,6 +127,7 @@ tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 go env -w GOBIN=/usr/local/bin
+rm "go$GO_VERSION.linux-amd64.tar.gz"
 
 apt-get clean
 rm -rf /var/cache/apt

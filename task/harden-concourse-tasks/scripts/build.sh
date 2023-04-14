@@ -67,6 +67,7 @@ apt-get -y -q install \
   yq \
   zlibc \
   rsync \
+  libc6
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
@@ -153,8 +154,8 @@ mkdir -p /usr/local/go
 tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
-
 go env -w GOBIN=/usr/local/bin
+rm "go$GO_VERSION.linux-amd64.tar.gz"
 
 apt-get clean
 rm -rf /var/cache/apt
