@@ -84,8 +84,6 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 
-
-
 # # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
 # # # Set default versions of ruby and gem to 2.0 versions
 # # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
@@ -155,6 +153,8 @@ mkdir -p /usr/local/go
 tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+
+go env -w GOBIN=/usr/local/bin
 
 apt-get clean
 rm -rf /var/cache/apt
