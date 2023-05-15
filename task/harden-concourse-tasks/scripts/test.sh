@@ -44,7 +44,6 @@ test_package sqlite3
 test_package unzip
 test_package yq
 test_package zlib1g-dev
-test_package zlibc
 
 #
 # Test installed commands
