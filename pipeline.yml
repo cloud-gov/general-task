@@ -157,7 +157,7 @@ resources:
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
-    branch: {{concourse-task-image-git-branch}}
+    branch: jammy-update
 
 - name: ecr-harden-concourse-task
   type: registry-image

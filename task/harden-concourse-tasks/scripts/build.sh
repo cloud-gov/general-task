@@ -65,7 +65,6 @@ apt-get -y -q install \
   vim \
   whois \
   yq \
-  zlibc \
   rsync \
 
 echo "UA attaching"
