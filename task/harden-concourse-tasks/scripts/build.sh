@@ -39,6 +39,7 @@ apt-get -y update
 echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
   build-essential \
+  zlib1g-dev \
   cmake \
   curl \
   dnsutils \
@@ -50,6 +51,7 @@ apt-get -y -q install \
   libreadline6-dev \
   libsqlite3-dev \
   libssl-dev \
+  libreadline-dev \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
