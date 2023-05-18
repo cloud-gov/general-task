@@ -39,6 +39,7 @@ apt-get -y update
 echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
   build-essential \
+  zlib1g-dev \
   cmake \
   curl \
   dnsutils \
@@ -50,6 +51,7 @@ apt-get -y -q install \
   libreadline6-dev \
   libsqlite3-dev \
   libssl-dev \
+  libreadline-dev \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
@@ -65,7 +67,6 @@ apt-get -y -q install \
   vim \
   whois \
   yq \
-  zlibc \
   rsync \
 
 echo "UA attaching"
@@ -75,7 +76,7 @@ apt-get -y -q install \
   usg \
 
 # Install Ruby from source
-wget "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure
