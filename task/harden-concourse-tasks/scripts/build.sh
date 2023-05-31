@@ -36,6 +36,10 @@ echo "Updating system package registry"
 add-apt-repository ppa:rmescandon/yq
 apt-get -y update
 
+#install latest nodejs
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
+sudo apt-get install -y nodejs
+
 echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
   build-essential \
@@ -192,6 +196,9 @@ chmod a+x /usr/bin/uaa
 
 echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+#node
+npm install minimist
 
 echo "UA hardening"
 usg fix cis_level1_server
