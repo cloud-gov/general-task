@@ -38,7 +38,6 @@ test_package libxml2-dev
 test_package libxslt1-dev
 test_package libyaml-dev
 test_package openssl
-test_package npm
 test_package python3-pip
 test_package sqlite3
 test_package unzip
@@ -65,3 +64,4 @@ test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command go "$GO_CMD_VERSION" version
+test_command node "$NODE_VERSION"

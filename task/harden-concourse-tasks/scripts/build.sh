@@ -19,6 +19,7 @@ EOF
 # Install current postgres
 apt-get update
 apt-get -y -q install \
+  apt-utils \
   gnupg2 \
   lsb-release \
   software-properties-common \
@@ -35,10 +36,6 @@ ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 echo "Updating system package registry"
 add-apt-repository ppa:rmescandon/yq
 apt-get -y update
-
-#install latest nodejs
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
-sudo apt-get install -y nodejs
 
 echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
@@ -59,7 +56,6 @@ apt-get -y -q install \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
-  npm \
   openssl \
   postgresql-client \
   postgresql-client-common \
@@ -78,6 +74,14 @@ ua attach --attach-config ua-attach-config.yaml
 
 apt-get -y -q install \
   usg \
+
+#install nodejs using nvm
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+nvm install $NODE_VERSION
+npm install minimist
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -196,9 +200,6 @@ chmod a+x /usr/bin/uaa
 
 echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
-
-#node
-npm install minimist
 
 echo "UA hardening"
 usg fix cis_level1_server
