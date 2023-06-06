@@ -64,4 +64,3 @@ test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command go "$GO_CMD_VERSION" version
-test_command node "$NODE_VERSION"
