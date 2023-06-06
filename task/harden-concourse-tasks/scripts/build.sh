@@ -16,17 +16,17 @@ enable_services:
 
 EOF
 
-# Install current postgres
 apt-get update
 apt-get -y -q install \
   apt-utils \
   gnupg2 \
-  lsb-release \
-  software-properties-common \
-  ubuntu-advantage-tools ca-certificates \
   tzdata \
   wget \
+  software-properties-common \
+  lsb-release \
+  ubuntu-advantage-tools ca-certificates \
 
+#install postgres
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
 
@@ -59,15 +59,28 @@ apt-get -y -q install \
   openssl \
   postgresql-client \
   postgresql-client-common \
-  python3-openssl \
-  python3-pip \
-  python3-yaml \
   sqlite3 \
   unzip \
   vim \
   whois \
-  yq \
   rsync \
+  libffi-dev \
+  yq \
+  python3-pip \
+
+#upgrade pip and install necessary packages
+echo "Upgrading python packages"
+pip3 install --upgrade pip
+pip3 install setuptools -U
+pip3 install wheel -U
+pip3 install oauthlib -U
+pip3 install pyopenssl -U
+pip3 install pyyaml -U
+pip3 install PyJWT -U
+pip3 install cryptography -U
+
+echo "Installing awscli"
+pip3 install awscli
 
 echo "UA attaching"
 ua attach --attach-config ua-attach-config.yaml
@@ -121,9 +134,6 @@ echo "Installing jq version ${JQ_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
 chmod +x /usr/local/bin/jq
 
-echo "Installing awscli"
-pip3 install awscli
-
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
@@ -134,10 +144,6 @@ echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 rm -f terraform.zip
-
-echo "Installing CF Client version 6 ${CF_CLI_RELEASE_VERSION6}"
-curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION6}" | tar -zx -C /usr/local/bin
-mv /usr/local/bin/cf /usr/local/bin/cf6
 
 echo "Installing CF Client version 7 ${CF_CLI_RELEASE_VERSION7}"
 curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION7}" | tar -zx -C /usr/local/bin
@@ -189,7 +195,7 @@ popd
 rm -rf /tmp/bats-repo
 
 echo "Installing Doomsday CLI"
-wget https://github.com/doomsday-project/doomsday/releases/latest/download/doomsday-linux-amd64
+wget https://github.com/cloud-gov/cg-doomsday/releases/download/1.0.0/doomsday-linux-amd64
 chmod a+x doomsday-linux-amd64
 mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
