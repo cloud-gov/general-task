@@ -38,12 +38,11 @@ test_package libxml2-dev
 test_package libxslt1-dev
 test_package libyaml-dev
 test_package openssl
-test_package npm
-test_package python3-pip
 test_package sqlite3
 test_package unzip
 test_package yq
 test_package zlib1g-dev
+test_package python3-pip
 
 #
 # Test installed commands
@@ -60,7 +59,6 @@ test_command jq "$JQ_CMD_VERSION"
 test_command make "$MAKE_CMD_VERSION"
 test_command rake "$RAKE_CMD_VERSION"
 test_command ruby "$RUBY_CMD_VERSION"
-test_command spruce "$SPRUCE_RELEASE_VERSION"
 test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
