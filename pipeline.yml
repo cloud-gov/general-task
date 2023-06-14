@@ -163,14 +163,6 @@ resources:
       # {{concourse-task-image-git-branch}}
       # hardcoded my branch above
       
-- name: ecr-harden-concourse-task
-  type: registry-image
-  source:
-    aws_access_key_id: ((aws-key))
-    aws_secret_access_key: ((aws-secret))
-    repository: harden-concourse-task
-    aws_region: us-gov-west-1
-    semver_constraint: ">= 1.0.0"
 
 - name: ecr-harden-concourse-task-staging
   type: registry-image
@@ -181,14 +173,6 @@ resources:
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
 
-- name: ecr-harden-s3-resource-simple
-  type: registry-image
-  source:
-    aws_access_key_id: ((aws-key))
-    aws_secret_access_key: ((aws-secret))
-    repository: harden-s3-resource-simple
-    aws_region: us-gov-west-1
-    semver_constraint: ">= 1.0.0"
 
 - name: ecr-harden-s3-resource-simple-staging
   type: registry-image
