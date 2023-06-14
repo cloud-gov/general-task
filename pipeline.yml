@@ -127,7 +127,7 @@ jobs:
 
 - name: harden-container-bosh-development
   plan:
-  - get: ecr-harden-concourse-task
+  - get: ecr-harden-concourse-task-staging
   - task: jumpbox
     config:
       platform: linux
