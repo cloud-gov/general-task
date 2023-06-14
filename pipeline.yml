@@ -95,9 +95,9 @@ jobs:
 # need harden s3 task resource for staging 
 - name: update-harden-s3-resource-simple-image-staging
   plan:
-  - get: s3-resource-simple-repository
-  - get: harden-concourse-image-version-staging
+  - get: harden-concourse-images
     trigger: true
+  - get: s3-resource-simple-repository
   - get: harden-s3-resource-simple-image-version-staging
     params: {bump: patch}
   - task: build
