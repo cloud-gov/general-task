@@ -95,7 +95,6 @@ jobs:
   plan:
   - get: harden-concourse-images
     trigger: true
-  - get: s3-resource-simple-repository
   - get: harden-s3-resource-simple-image-version-staging
     params: {bump: patch}
   - task: build
@@ -167,7 +166,6 @@ resources:
     repository: harden-concourse-task-staging
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
-
 
 - name: ecr-harden-s3-resource-simple-staging
   type: registry-image
