@@ -59,12 +59,12 @@ jobs:
         tag_as_latest: true
     - put: s3-image-version
       params: {file: s3-image-version/version}
-    
-- name: update-harden-concourse-task-image
+
+- name: update-harden-concourse-task-image-staging
   plan:
   - get: harden-concourse-images
     trigger: true
-  - get: harden-concourse-image-version
+  - get: harden-concourse-image-version-staging
     params: {bump: patch}
   - task: build
     privileged: true
@@ -84,19 +84,19 @@ jobs:
       params:
         BUILD_ARG_TOKEN: ((ua-token))
         CONTEXT: task/harden-concourse-tasks/
-  - put: ecr-harden-concourse-task
+  - put: ecr-harden-concourse-task-staging
     params:
       image: image/image.tar
-      additional_tags: harden-concourse-image-version/version
-  - put: harden-concourse-image-version
-    params: {file: harden-concourse-image-version/version}
+      additional_tags: harden-concourse-image-version-staging/version
+  - put: harden-concourse-image-version-staging
+    params: {file: harden-concourse-image-version-staging/version}
 
-- name: update-harden-s3-resource-simple-image
+- name: update-harden-s3-resource-simple-image-staging
   plan:
   - get: s3-resource-simple-repository
   - get: harden-concourse-images
     trigger: true
-  - get: harden-s3-resource-simple-image-version
+  - get: harden-s3-resource-simple-image-version-staging
     params: {bump: patch}
   - task: build
     privileged: true
@@ -116,16 +116,16 @@ jobs:
       params:
         BUILD_ARG_TOKEN: ((ua-token))
         CONTEXT: task/s3-resource-simple/
-  - put: ecr-harden-s3-resource-simple
+  - put: ecr-harden-s3-resource-simple-staging
     params:
       image: image/image.tar
-      additional_tags: harden-s3-resource-simple-image-version/version
-  - put: harden-s3-resource-simple-image-version
-    params: {file: harden-s3-resource-simple-image-version/version}
+      additional_tags: harden-s3-resource-simple-image-version-staging/version
+  - put: harden-s3-resource-simple-image-version-staging
+    params: {file: harden-s3-resource-simple-image-version-staging/version}
 
 - name: harden-container-bosh-development
   plan:
-  - get: ecr-harden-concourse-task
+  - get: ecr-harden-concourse-task-staging
   - task: jumpbox
     config:
       platform: linux
@@ -159,21 +159,21 @@ resources:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
 
-- name: ecr-harden-concourse-task
+- name: ecr-harden-concourse-task-staging
   type: registry-image
   source:
     aws_access_key_id: ((aws-key))
     aws_secret_access_key: ((aws-secret))
-    repository: harden-concourse-task
+    repository: harden-concourse-task-staging
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
 
-- name: ecr-harden-s3-resource-simple
+- name: ecr-harden-s3-resource-simple-staging
   type: registry-image
   source:
     aws_access_key_id: ((aws-key))
     aws_secret_access_key: ((aws-secret))
-    repository: harden-s3-resource-simple
+    repository: harden-s3-resource-simple-staging
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
 
@@ -233,23 +233,23 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-- name: harden-concourse-image-version
+- name: harden-concourse-image-version-staging
   type: semver
   source:
     driver: s3
     bucket: {{semver-bucket}}
-    key: harden-concourse-docker-image-version
+    key: harden-concourse-docker-image-version-staging
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-- name: harden-s3-resource-simple-image-version
+- name: harden-s3-resource-simple-image-version-staging
   type: semver
   source:
     driver: s3
     bucket: {{semver-bucket}}
-    key: harden-s3-resource-simple-image-version
+    key: harden-s3-resource-simple-image-version-staging
     access_key_id: {{aws-access-key-id}}
     secret_access_key: {{aws-secret-access-key}}
     region_name: {{aws-region}}
