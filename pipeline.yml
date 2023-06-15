@@ -157,7 +157,7 @@ resources:
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
-    branch: {{concourse-task-image-git-branch}}
+    branch: create-staging-images #{{concourse-task-image-git-branch}}
 
 - name: ecr-harden-concourse-task-staging
   type: registry-image
