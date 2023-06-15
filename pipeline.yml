@@ -59,8 +59,7 @@ jobs:
         tag_as_latest: true
     - put: s3-image-version
       params: {file: s3-image-version/version}
-        #
-# need harden concourse task resource for staging 
+
 - name: update-harden-concourse-task-image-staging
   plan:
   - get: harden-concourse-images
@@ -92,7 +91,6 @@ jobs:
   - put: harden-concourse-image-version-staging
     params: {file: harden-concourse-image-version-staging/version}
 
-# need harden s3 task resource for staging 
 - name: update-harden-s3-resource-simple-image-staging
   plan:
   - get: harden-concourse-images
@@ -159,10 +157,7 @@ resources:
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
-    branch: create-staging-images
-      # {{concourse-task-image-git-branch}}
-      # hardcoded my branch above
-      
+    branch: {{concourse-task-image-git-branch}}
 
 - name: ecr-harden-concourse-task-staging
   type: registry-image
@@ -250,16 +245,16 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-      #- name: harden-concourse-image-version
-      #  type: semver
-      #  source:
-      #    driver: s3
-      #    bucket: {{semver-bucket}}
-      #    key: harden-concourse-docker-image-version
-      #    access_key_id: {{aws-access-key-id}}
-      #    secret_access_key: {{aws-secret-access-key}}
-      #    region_name: {{aws-region}}
-      #    initial_version: 1.0.0
+- name: harden-concourse-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: harden-concourse-docker-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
 
 - name: harden-s3-resource-simple-image-version-staging
   type: semver
@@ -272,16 +267,16 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-      #- name: harden-s3-resource-simple-image-version
-      #  type: semver
-      #  source:
-      #    driver: s3
-      #    bucket: {{semver-bucket}}
-      #    key: harden-s3-resource-simple-image-version
-      #    access_key_id: {{aws-access-key-id}}
-      #    secret_access_key: {{aws-secret-access-key}}
-      #    region_name: {{aws-region}}
-      #    initial_version: 1.0.0
+- name: harden-s3-resource-simple-image-version
+  type: semver
+  source:
+    driver: s3
+    bucket: {{semver-bucket}}
+    key: harden-s3-resource-simple-image-version
+    access_key_id: {{aws-access-key-id}}
+    secret_access_key: {{aws-secret-access-key}}
+    region_name: {{aws-region}}
+    initial_version: 1.0.0
 
 - name: s3-image-version
   type: semver
