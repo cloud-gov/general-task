@@ -1,6 +1,7 @@
 ---
 jobs:
-- name: update-concourse-task-image
+- name: create-concourse-task-image
+  old_name: update-concourse-task-image
   plan:
   - get: concourse-images
     trigger: true
@@ -14,7 +15,8 @@ jobs:
   - put: concourse-image-version
     params: {file: concourse-image-version/version}
 
-- name: update-oracle-image-task
+- name: create-oracle-image
+  old_name: update-oracle-image-task
   plan:
   - get: oracle-image-git-repository
     trigger: true
@@ -28,7 +30,8 @@ jobs:
   - put: oracle-image-version
     params: {file: oracle-image-version/version}
 
-- name: update-sql-client-image
+- name: create-sql-client-image
+  old_name: update-sql-client-image
   plan:
   - in_parallel:
       steps:
@@ -47,7 +50,8 @@ jobs:
   - put: sql-client-image-version
     params: {file: sql-client-image-version/version}
 
-- name: s3-resource-simple-image
+- name: create-s3-resource-simple-image
+  old_name: s3-resource-simple-image
   plan:
     - get: s3-resource-simple-repository
     - get: s3-image-version
@@ -60,11 +64,12 @@ jobs:
     - put: s3-image-version
       params: {file: s3-image-version/version}
 
-- name: update-harden-concourse-task-image-staging
+- name: create-hardened-concourse-task-staging-image
+  old_name: update-harden-concourse-task-image-staging
   plan:
-  - get: harden-concourse-images
+  - get: harden-concourse-images-repo
     trigger: true
-  - get: harden-concourse-image-version-staging
+  - get: hardened-staging-concourse-image-version
     params: {bump: patch}
   - task: build
     privileged: true
@@ -75,7 +80,7 @@ jobs:
         source:
           repository: concourse/oci-build-task
       inputs:
-      - name: harden-concourse-images
+      - name: harden-concourse-images-repo
         path: .
       outputs:
       - name: image
@@ -84,19 +89,20 @@ jobs:
       params:
         BUILD_ARG_TOKEN: ((ua-token))
         CONTEXT: task/harden-concourse-tasks/
-  - put: ecr-harden-concourse-task-staging
+  - put: ecr-harden-concourse-task-staging-repo
     params:
       image: image/image.tar
-      additional_tags: harden-concourse-image-version-staging/version
-  - put: harden-concourse-image-version-staging
-    params: {file: harden-concourse-image-version-staging/version}
+      additional_tags: hardened-staging-concourse-image-version/version
+  - put: hardened-staging-concourse-image-version
+    params: {file: hardened-staging-concourse-image-version/version}
 
-- name: update-harden-s3-resource-simple-image-staging
+- name: create-hardened-s3-resource-simple-staging-image
+  old_name: update-harden-s3-resource-simple-image-staging
   plan:
   - get: s3-resource-simple-repository
-  - get: harden-concourse-images
+  - get: harden-concourse-images-repo
     trigger: true
-  - get: harden-s3-resource-simple-image-version-staging
+  - get: hardened-s3-resource-simple-image-version-staging
     params: {bump: patch}
   - task: build
     privileged: true
@@ -107,7 +113,7 @@ jobs:
         source:
           repository: concourse/oci-build-task
       inputs:
-      - name: harden-concourse-images
+      - name: harden-concourse-images-repo
         path: .
       outputs:
       - name: image
@@ -116,16 +122,17 @@ jobs:
       params:
         BUILD_ARG_TOKEN: ((ua-token))
         CONTEXT: task/s3-resource-simple/
-  - put: ecr-harden-s3-resource-simple-staging
+  - put: ecr-harden-s3-resource-simple-staging-repo
     params:
       image: image/image.tar
-      additional_tags: harden-s3-resource-simple-image-version-staging/version
-  - put: harden-s3-resource-simple-image-version-staging
-    params: {file: harden-s3-resource-simple-image-version-staging/version}
+      additional_tags: hardened-s3-resource-simple-image-version-staging/version
+  - put: hardened-s3-resource-simple-image-version-staging
+    params: {file: hardened-s3-resource-simple-image-version-staging/version}
 
-- name: harden-container-bosh-development
+- name: hardened-container-bosh-development-jumpbox
+  old_name: harden-container-bosh-development
   plan:
-  - get: ecr-harden-concourse-task-staging
+  - get: ecr-harden-concourse-task-staging-repo
   - task: jumpbox
     config:
       platform: linux
@@ -153,13 +160,13 @@ resources:
     branch: {{concourse-task-image-git-branch}}
     commit_verification_keys: ((cloud-gov-pgp-keys))
 
-- name: harden-concourse-images
+- name: harden-concourse-images-repo
   type: git
   source:
     uri: {{concourse-task-image-git-url}}
     branch: {{concourse-task-image-git-branch}}
 
-- name: ecr-harden-concourse-task-staging
+- name: ecr-harden-concourse-task-staging-repo
   type: registry-image
   source:
     aws_access_key_id: ((aws-key))
@@ -168,7 +175,7 @@ resources:
     aws_region: us-gov-west-1
     semver_constraint: ">= 1.0.0"
 
-- name: ecr-harden-s3-resource-simple-staging
+- name: ecr-harden-s3-resource-simple-staging-repo
   type: registry-image
   source:
     aws_access_key_id: ((aws-key))
@@ -233,7 +240,7 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-- name: harden-concourse-image-version-staging
+- name: hardened-staging-concourse-image-version
   type: semver
   source:
     driver: s3
@@ -244,7 +251,7 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-- name: harden-s3-resource-simple-image-version-staging
+- name: hardened-s3-resource-simple-image-version-staging
   type: semver
   source:
     driver: s3
