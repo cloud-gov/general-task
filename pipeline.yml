@@ -69,7 +69,7 @@ jobs:
   plan:
   - get: harden-concourse-images-repo
     trigger: true
-  - get: hardened-staging-concourse-image-version
+  - get: hardened-concourse-image-staging-version
     params: {bump: patch}
   - task: build
     privileged: true
@@ -92,9 +92,9 @@ jobs:
   - put: ecr-harden-concourse-task-staging-repo
     params:
       image: image/image.tar
-      additional_tags: hardened-staging-concourse-image-version/version
-  - put: hardened-staging-concourse-image-version
-    params: {file: hardened-staging-concourse-image-version/version}
+      additional_tags: hardened-concourse-image-staging-version/version
+  - put: hardened-concourse-image-staging-version
+    params: {file: hardened-concourse-image-staging-version/version}
 
 - name: create-hardened-s3-resource-simple-staging-image
   old_name: update-harden-s3-resource-simple-image-staging
@@ -240,7 +240,7 @@ resources:
     region_name: {{aws-region}}
     initial_version: 1.0.0
 
-- name: hardened-staging-concourse-image-version
+- name: hardened-concourse-image-staging-version
   type: semver
   source:
     driver: s3
