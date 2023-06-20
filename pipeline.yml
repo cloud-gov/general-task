@@ -38,7 +38,7 @@ jobs:
       - get: concourse-images
         trigger: true
       - get: oracle-image-repository
-        passed: [update-oracle-image-task]
+        passed: [create-oracle-image]
         trigger: true
   - get: sql-client-image-version
     params: {bump: patch}
