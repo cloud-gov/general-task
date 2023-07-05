@@ -10,7 +10,6 @@ jobs:
 - name: create-concourse-task-image
   plan:
   - get: concourse-images
-    passed: [set-self]
     trigger: true
   - get: concourse-image-version
     params: {bump: patch}
@@ -41,7 +40,6 @@ jobs:
   - in_parallel:
       steps:
       - get: concourse-images
-        passed: [set-self]
         trigger: true
       - get: oracle-image-repository
         passed: [create-oracle-image]
@@ -59,6 +57,7 @@ jobs:
 - name: create-s3-resource-simple-image
   plan:
     - get: s3-resource-simple-repository
+      trigger: true
     - get: s3-image-version
       params: {bump: patch}
     - put: s3-resource-simple-repo
@@ -72,7 +71,6 @@ jobs:
 - name: create-hardened-concourse-task-staging-image
   plan:
   - get: harden-concourse-images-repo
-    passed: [set-self]
     trigger: true
   - get: hardened-concourse-image-staging-version
     params: {bump: patch}
@@ -104,8 +102,8 @@ jobs:
 - name: create-hardened-s3-resource-simple-staging-image
   plan:
   - get: s3-resource-simple-repository
+    trigger: true
   - get: harden-concourse-images-repo
-    passed: [set-self]
     trigger: true
   - get: hardened-s3-resource-simple-image-version-staging
     params: {bump: patch}
