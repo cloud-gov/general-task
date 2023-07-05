@@ -67,6 +67,11 @@ apt-get -y -q install \
   libffi-dev \
   yq \
   python3-pip \
+  vim \
+  linux-libc-dev \
+  libcap2 \
+  vim-common \
+  xxd \
 
 #upgrade pip and install necessary packages
 echo "Upgrading python packages"
@@ -89,12 +94,13 @@ apt-get -y -q install \
   usg \
 
 #install nodejs using nvm
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/{$NVM_VERSION}/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-nvm install $NODE_VERSION
+nvm install "{$NODE_VERSION}"
 npm install minimist
+npm install semver
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
