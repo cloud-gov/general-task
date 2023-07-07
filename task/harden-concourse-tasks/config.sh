@@ -25,6 +25,7 @@ REXML_RELEASE_VERSION=3.2.5
 GO_VERSION=1.20.5
 NVM_VERSION=v0.39.3
 NODE_VERSION=v18.16.1
+YQ_VERSION=v4.34.1
 
 #
 # Command versions (only for testing purposes)
