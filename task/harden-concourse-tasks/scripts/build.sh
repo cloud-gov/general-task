@@ -69,7 +69,6 @@ apt-get -y -q install \
   whois \
   rsync \
   libffi-dev \
-  yq \
   python3-pip \
 
 apt-get clean

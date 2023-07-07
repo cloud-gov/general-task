@@ -40,7 +40,6 @@ test_package libyaml-dev
 test_package openssl
 test_package sqlite3
 test_package unzip
-test_package yq
 test_package zlib1g-dev
 test_package python3-pip
 
@@ -63,3 +62,4 @@ test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command go "$GO_CMD_VERSION" version
+test_command yq "$YQ_VERSION"
