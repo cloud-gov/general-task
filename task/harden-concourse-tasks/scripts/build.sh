@@ -17,14 +17,16 @@ enable_services:
 EOF
 
 apt-get update
+apt-get -y upgrade
 apt-get -y -q install \
   apt-utils \
   gnupg2 \
   tzdata \
   wget \
-  software-properties-common \
   lsb-release \
   ubuntu-advantage-tools ca-certificates \
+
+apt-get clean
 
 #install postgres
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
@@ -33,9 +35,11 @@ wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
 echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
-echo "Updating system package registry"
-add-apt-repository ppa:rmescandon/yq
-apt-get -y update
+#installs yq
+wget "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64.tar.gz"
+tar xvaf yq_linux_amd64.tar.gz
+mv yq_linux_amd64 /usr/bin/yq
+rm -f yq_linux_amd64.tar.gz yq.1 install-man-page.sh
 
 echo "Installing basic libraries and development utilities"
 apt-get -y -q install \
@@ -67,11 +71,8 @@ apt-get -y -q install \
   libffi-dev \
   yq \
   python3-pip \
-  vim \
-  linux-libc-dev \
-  libcap2 \
-  vim-common \
-  xxd \
+
+apt-get clean
 
 #upgrade pip and install necessary packages
 echo "Upgrading python packages"
