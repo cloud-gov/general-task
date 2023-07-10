@@ -28,9 +28,10 @@ apt-get -y -q install \
 
 apt-get clean
 
-#install postgres
+#install postgres apt repo
 echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+apt-get update
 
 echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
@@ -53,7 +54,6 @@ apt-get -y -q install \
   libmysqlclient-dev \
   libpopt-dev \
   libpq-dev \
-  libreadline6-dev \
   libsqlite3-dev \
   libssl-dev \
   libreadline-dev \
