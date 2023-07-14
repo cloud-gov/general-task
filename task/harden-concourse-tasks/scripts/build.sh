@@ -93,14 +93,14 @@ ua attach --attach-config ua-attach-config.yaml
 apt-get -y -q install \
   usg \
 
-#install nodejs using nvm
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-nvm install "${NODE_VERSION}"
-npm install minimist
-npm install semver
+#install nodejs from source
+wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz"
+mkdir -p /usr/local/lib/nodejs
+tar -xJvf node-${NODE_VERSION}-linux-x64.tar.xz -C /usr/local/lib/nodejs
+ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/node /usr/bin/node
+ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/npm /usr/bin/npm
+ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
+rm -f "node-${NODE_VERSION}-linux-x64.tar.xz"
 
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -132,22 +132,24 @@ gem install cgi -v "${CGI_RELEASE_VERSION}"
 # Install Rexml
 gem install rexml -v "${REXML_RELEASE_VERSION}"
 
+update-ca-certificates
+
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
-curl -L -o /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
+wget -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
 chmod +x /usr/local/bin/spruce
 
 echo "Installing jq version ${JQ_RELEASE_VERSION}"
-curl -L -o /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
+wget -L -O /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
 chmod +x /usr/local/bin/jq
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
-curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
+wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 mv /usr/local/bin/terraform /usr/local/bin/terratest-1.1
 rm -f terraform.zip
 
 echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
-curl -L -o terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
+wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -d /usr/local/bin terraform.zip
 rm -f terraform.zip
 

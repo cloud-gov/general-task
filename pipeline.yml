@@ -166,7 +166,7 @@ resources:
   type: git
   source:
     uri: ((concourse-task-image-git-url))
-    branch: ((concourse-task-image-git-branch))
+    branch: fix-node-version
 
 - name: ecr-harden-concourse-task-staging-repo
   type: registry-image
