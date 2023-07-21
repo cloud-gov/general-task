@@ -107,7 +107,7 @@ wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure
-  make
+  make -j4
   make install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
