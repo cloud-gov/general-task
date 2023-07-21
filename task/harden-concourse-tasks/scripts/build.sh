@@ -216,9 +216,11 @@ echo "Installing grype cli"
 curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
 
 echo "UA hardening"
-usg fix cis_level1_server
+usg fix cis_level1_server --html-results usg-fix-results.html --results-file usg-fix-results.xml
 
 echo "Cleaning up ua"
+rm usg-fix-results.html
+rm usg-fix-results.xml
 apt-get purge --auto-remove -y \
   ubuntu-advantage-tools && \
   rm -rf /var/lib/apt/lists/*
