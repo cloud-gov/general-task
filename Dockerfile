@@ -3,16 +3,15 @@
 # DESCRIPTION:    Concourse Task Image
 # TO_BUILD:       docker build -t local/task .
 # TO_RUN:         docker run local/task echo "Hello World!"
+ARG base_image
 
-FROM ubuntu:22.04
+FROM ${base_image}
 
 # Copy local project directories to container image
 COPY . /opt/concourse-ci/task
 
 # Set current working directory for executed scripts
 WORKDIR /opt/concourse-ci/task
-
-ARG TOKEN
 
 #reduce warnings during build and accept default answers for packages
 ARG DEBIAN_FRONTEND=noninteractive
