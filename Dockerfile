@@ -3,8 +3,9 @@
 # DESCRIPTION:    Concourse Task Image
 # TO_BUILD:       docker build -t local/task .
 # TO_RUN:         docker run local/task echo "Hello World!"
+ARG base_image
 
-FROM ubuntu:20.04
+FROM ${base_image}
 
 # Copy local project directories to container image
 COPY . /opt/concourse-ci/task
@@ -12,9 +13,10 @@ COPY . /opt/concourse-ci/task
 # Set current working directory for executed scripts
 WORKDIR /opt/concourse-ci/task
 
+#reduce warnings during build and accept default answers for packages
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Use a custom build script instead of messy chained together RUN
 # or multiple RUN statements that add bloat to the image
-RUN /opt/concourse-ci/task/scripts/build.sh
-
-# Run tests on the Docker build
-RUN /opt/concourse-ci/task/scripts/test.sh
+# AND Run tests on the Docker build
+RUN /opt/concourse-ci/task/scripts/build.sh && /opt/concourse-ci/task/scripts/test.sh
