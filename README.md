@@ -2,6 +2,8 @@
 
 A general-purpose [Concourse](http://concourse-ci.org/) task containing a variety of build systems and CLI tools.
 
+Formerly named `cg-deploy-concourse-docker-image`.
+
 ## Using local Terraform providers
 
 Adding providers to source locally for tasks using them in Terraform will have to be download and add them via the [`scripts/build.sh`] script. Provider builds will need to be downloaded and added to the `$HOME/.terraform-providers/local/providers/` directory with the following path structure `.../<PROVIDER NAME>/<VERSION>/<PLATFORM>/<PROVIDER BUILD>`.
