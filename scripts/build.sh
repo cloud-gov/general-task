@@ -58,7 +58,6 @@ apt-get -y -q install \
   unzip \
   vim \
   whois \
-  rsync \
   libffi-dev \
   python3-pip \
 
