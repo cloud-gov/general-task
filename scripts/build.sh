@@ -196,4 +196,14 @@ wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/
 mv uaa-linux-amd64-0.10.0 /usr/bin/uaa
 chmod a+x /usr/bin/uaa
 
+echo "Installing GitHub CLI"
+# Instructions adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+  | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+  | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+apt update
+apt install gh -y
+
 rm -rf /var/lib/apt/lists/*
