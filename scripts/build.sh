@@ -206,4 +206,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 apt update
 apt install gh -y
 
+echo "Installing grype cli"
+curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
 rm -rf /var/lib/apt/lists/*
