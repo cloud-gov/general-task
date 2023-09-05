@@ -60,6 +60,7 @@ apt-get -y -q install \
   whois \
   libffi-dev \
   python3-pip \
+  python-is-python3 # symlink python to python3 executable
 
 apt-get clean
 
