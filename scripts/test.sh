@@ -64,3 +64,4 @@ test_command unzip "$UNZIP_CMD_VERSION"
 test_command go "$GO_CMD_VERSION" version
 test_command yq "$YQ_VERSION"
 test_command node "$NODE_VERSION"
+test_command python "$PYTHON_CMD_VERSION"
