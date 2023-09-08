@@ -59,12 +59,13 @@ apt-get -y -q install \
   vim \
   whois \
   libffi-dev \
-  python3-pip
+  python3-pip \
+  python3-venv
 
 apt-get clean
 
 # symlink python to python3 executable
-ln -s $(which python3) /usr/bin/python
+ln -s "$(which python3)" /usr/bin/python
 
 #upgrade pip and install necessary packages
 echo "Upgrading python packages"
