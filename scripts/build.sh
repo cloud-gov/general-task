@@ -40,6 +40,7 @@ apt-get -y -q install \
   cmake \
   curl \
   dnsutils \
+  gh \
   git \
   libcurl4-openssl-dev \
   libmysqlclient-dev \
