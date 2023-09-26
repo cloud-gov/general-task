@@ -40,7 +40,6 @@ apt-get -y -q install \
   cmake \
   curl \
   dnsutils \
-  gh \
   git \
   libcurl4-openssl-dev \
   libmysqlclient-dev \
@@ -167,6 +166,13 @@ ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
 go env -w GOBIN=/usr/local/bin
+
+#install gh
+wget "https://github.com/cli/cli/archive/refs/tags/v${GH_RELEASE_VERSION}.tar.gz"
+tar xvaf "v${GH_RELEASE_VERSION}.tar.gz"
+pushd "cli-${GH_RELEASE_VERSION}"
+  make install
+popd
 
 apt-get clean
 rm -rf /var/cache/apt
