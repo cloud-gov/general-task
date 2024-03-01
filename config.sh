@@ -14,7 +14,7 @@ CF_CLI_RELEASE_VERSION7=7.7.1
 CREDHUB_CLI_RELEASE_VERSION=2.9.18
 # bosh-cli gets really slow at 6.2.0, so we're pinned here.
 # check https://github.com/cloudfoundry/bosh-cli/issues/570 for details
-BOSH_CLI_V2_RELEASE_VERSION=7.2.3
+BOSH_CLI_V2_RELEASE_VERSION=7.5.4
 UAAC_CLI_RELEASE_VERSION=4.14.0
 RUBY_RELEASE_VERSION=3.2.2
 RAKE_RELEASE_VERSION=13.0.6
