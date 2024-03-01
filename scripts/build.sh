@@ -153,7 +153,8 @@ echo "Installing uaac"
 gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-document
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
-curl -L -o /usr/local/bin/bosh "https://github.com/cloudfoundry/bosh-cli/releases/download/${BOSH_CLI_V2_RELEASE_VERSION}/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
+curl -L -o /usr/local/bin/bosh "https://github.com/cloudfoundry/bosh-cli/releases/download/v${BOSH_CLI_V2_RELEASE_VERSION}/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
+
 chmod +x /usr/local/bin/bosh
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh2
 ln -s /usr/local/bin/bosh /usr/local/bin/bosh-cli
