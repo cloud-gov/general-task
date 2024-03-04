@@ -91,7 +91,7 @@ ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
 rm -f "node-${NODE_VERSION}-linux-x64.tar.xz"
 
 # Install Ruby from source
-wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure
