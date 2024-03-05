@@ -127,7 +127,7 @@ wget -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases
 chmod +x /usr/local/bin/spruce
 
 echo "Installing jq version ${JQ_RELEASE_VERSION}"
-wget -L -O /usr/local/bin/jq "https://github.com/stedolan/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux64"
+wget -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux-amd64"
 chmod +x /usr/local/bin/jq
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
