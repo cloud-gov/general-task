@@ -22,7 +22,7 @@ CGI_RELEASE_VERSION=0.4.1
 REXML_RELEASE_VERSION=3.2.6
 GO_VERSION=1.22.0
 NODE_VERSION=v20.11.1
-YQ_VERSION=v4.34.1
+YQ_VERSION=v4.42.1
 
 #
 # Command versions (only for testing purposes)
