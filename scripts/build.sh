@@ -9,7 +9,7 @@ source ./config.sh
 
 apt-get update
 apt-get -y upgrade
-apt-get -y -q install \
+apt-get -y -q install --no-install-recommends \
   apt-utils \
   gnupg2 \
   tzdata \
@@ -34,7 +34,7 @@ mv yq_linux_amd64 /usr/bin/yq
 rm -f yq_linux_amd64.tar.gz yq.1 install-man-page.sh
 
 echo "Installing basic libraries and development utilities"
-apt-get -y -q install \
+apt-get -y -q install --no-install-recommends \
   build-essential \
   zlib1g-dev \
   cmake \
@@ -81,44 +81,27 @@ pip3 install cryptography -U
 echo "Installing awscli"
 pip3 install awscli
 
-#install nodejs from source
-wget "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz"
-mkdir -p /usr/local/lib/nodejs
-tar -xJvf node-${NODE_VERSION}-linux-x64.tar.xz -C /usr/local/lib/nodejs
-ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/node /usr/bin/node
-ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/npm /usr/bin/npm
-ln -s /usr/local/lib/nodejs/node-${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
-rm -f "node-${NODE_VERSION}-linux-x64.tar.xz"
+#install nodejs using nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Install Ruby from source
-wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
-tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
-pushd "ruby-${RUBY_RELEASE_VERSION}"
-  ./configure
-  make -j4
-  make install
-popd
-rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+cat <<EOF >> ~/.bashrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+EOF
 
-# # Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
-# # # Set default versions of ruby and gem to 2.0 versions
-# # update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
-# # update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+nvm install $NODE_VERSION
 
-# Install Bundler
-gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
-
-# Install Rake
-gem install rake -v "${RAKE_RELEASE_VERSION}" --no-document
-
-# Install RDoc
-gem install rdoc -v "${RDOC_RELEASE_VERSION}"
-
-# Install CGI
-gem install cgi -v "${CGI_RELEASE_VERSION}"
-
-# Install Rexml
-gem install rexml -v "${REXML_RELEASE_VERSION}"
+# Install Ruby using rbenv
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
+eval "$(~/.rbenv/bin/rbenv init - bash)"
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+rbenv install $RUBY_CMD_VERSION
+rbenv global $RUBY_CMD_VERSION
 
 update-ca-certificates
 
@@ -148,9 +131,9 @@ mv /usr/local/bin/cf7 /usr/local/bin/cf
 echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-amd64-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
 
-# Commented out pending https://bugs.launchpad.net/ubuntu/+source/ruby2.0/+bug/1777174
+# Install uaac gem
 echo "Installing uaac"
-gem install cf-uaac -v "$UAAC_CLI_RELEASE_VERSION" --no-document
+gem install cf-uaac -v "$UAAC_CLI_GEM_VERSION" --no-document
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://github.com/cloudfoundry/bosh-cli/releases/download/v${BOSH_CLI_V2_RELEASE_VERSION}/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
@@ -162,7 +145,7 @@ ln -s /usr/local/bin/bosh /usr/local/bin/bosh-cli
 echo "Installing Go"
 curl -OL "https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz"
 mkdir -p /usr/local/go
-tar -xvzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
+tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 
@@ -197,12 +180,12 @@ chmod a+x doomsday-linux-amd64
 mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
 echo "Installing new UAA client."
-wget https://github.com/cloudfoundry-incubator/uaa-cli/releases/download/0.10.0/uaa-linux-amd64-0.10.0
-mv uaa-linux-amd64-0.10.0 /usr/bin/uaa
+wget https://github.com/cloudfoundry/uaa-cli/releases/download/${UAA_CLIENT_VERSION}/uaa-linux-amd64-${UAA_CLIENT_VERSION}
+mv uaa-linux-amd64-0.13.0 /usr/bin/uaa
 chmod a+x /usr/bin/uaa
 
 echo "Installing GitHub CLI"
-# Instructions adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+# # Instructions adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
