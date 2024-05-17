@@ -183,7 +183,7 @@ mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
 echo "Installing new UAA client."
 wget https://github.com/cloudfoundry/uaa-cli/releases/download/${UAA_CLIENT_VERSION}/uaa-linux-amd64-${UAA_CLIENT_VERSION}
-mv uaa-linux-amd64-0.13.0 /usr/bin/uaa
+mv uaa-linux-amd64-${UAA_CLIENT_VERSION} /usr/bin/uaa
 chmod a+x /usr/bin/uaa
 
 echo "Installing GitHub CLI"
