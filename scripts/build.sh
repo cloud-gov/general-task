@@ -87,7 +87,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-cat <<EOF >> ~/.bashrc
+cat <<EOF >> ~/.profile
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -100,6 +100,7 @@ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
 eval "$(~/.rbenv/bin/rbenv init - bash)"
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+
 rbenv install $RUBY_CMD_VERSION
 rbenv global $RUBY_CMD_VERSION
 
@@ -148,6 +149,7 @@ mkdir -p /usr/local/go
 tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+rm go$GO_VERSION.linux-amd64.tar.gz
 
 go env -w GOBIN=/usr/local/bin
 
