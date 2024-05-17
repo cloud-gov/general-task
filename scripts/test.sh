@@ -4,6 +4,16 @@
 # Source configuration environment variables
 #
 source ./config.sh
+
+# Source profile
+source ~/.profile
+
+# Node
+nvm use node
+
+# Get ruby configuration
+eval "$(~/.rbenv/bin/rbenv init - bash)"
+
 #
 # Source library functions
 #
@@ -52,16 +62,14 @@ test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
 test_command cf "$CF_CMD_VERSION"
 test_command cmake "$CMAKE_CMD_VERSION"
 test_command curl "$CURL_CMD_VERSION"
-test_command gem "$GEM_CMD_VERSION"
 test_command git "$GIT_CMD_VERSION"
 test_command jq "$JQ_CMD_VERSION"
 test_command make "$MAKE_CMD_VERSION"
-test_command rake "$RAKE_CMD_VERSION"
 test_command ruby "$RUBY_CMD_VERSION"
 test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
 test_command go "$GO_CMD_VERSION" version
 test_command yq "$YQ_VERSION"
-test_command node "$NODE_VERSION"
+test_command node "v$NODE_VERSION"
 test_command python "$PYTHON_CMD_VERSION"
