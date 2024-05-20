@@ -12,7 +12,7 @@ source ~/.profile
 nvm use node
 
 # Get ruby configuration
-eval "$(~/.rbenv/bin/rbenv init - bash)"
+#eval "$(~/.rbenv/bin/rbenv init - bash)"
 
 #
 # Source library functions
