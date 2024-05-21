@@ -19,8 +19,9 @@ apt-get -y -q install --no-install-recommends \
 
 apt-get clean
 
-#install postgres apt repo
-echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+# install postgres apt repo
+RELEASE=$(lsb_release -cs)
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $RELEASE-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
 apt-get update
 
@@ -96,15 +97,19 @@ EOF
 nvm install $NODE_VERSION
 
 # Install Ruby using rbenv
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
-echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.profile
-eval "$(~/.rbenv/bin/rbenv init - bash)"
+git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+cat <<EOF >> "$HOME/.profile"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+EOF
+# shellcheck source=/dev/null
+source "$HOME/.profile"
+cat <<EOF >> "$HOME/.profile"
+eval "$(rbenv init -)"
+EOF
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
 rbenv install $RUBY_CMD_VERSION
 rbenv global $RUBY_CMD_VERSION
-rbenv shell $RUBY_CMD_VERSION
 
 update-ca-certificates
 
