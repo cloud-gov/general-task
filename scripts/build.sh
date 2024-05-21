@@ -97,9 +97,11 @@ nvm install $NODE_VERSION
 
 # Install Ruby using rbenv
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bashrc
-echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.profile
-eval "$(~/.rbenv/bin/rbenv init - bash)"
+cat <<EOF >> ~/.profile
+export PATH="~/.rbenv/bin:$PATH"
+export PATH="~/.rbenv/shims:$PATH"
+eval "$(rbenv init -)"
+EOF
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
 rbenv install $RUBY_CMD_VERSION
