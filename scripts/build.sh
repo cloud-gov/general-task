@@ -110,7 +110,6 @@ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-b
 
 rbenv install $RUBY_CMD_VERSION
 rbenv global $RUBY_CMD_VERSION
-rbenv shell $RUBY_CMD_VERSION
 
 update-ca-certificates
 
