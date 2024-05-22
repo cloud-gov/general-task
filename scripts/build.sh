@@ -96,20 +96,27 @@ EOF
 
 nvm install $NODE_VERSION
 
-# Install Ruby using rbenv
-git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
-cat <<EOF >> "$HOME/.profile"
-export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-EOF
-# shellcheck source=/dev/null
-source "$HOME/.profile"
-cat <<EOF >> "$HOME/.profile"
-eval "$(rbenv init -)"
-EOF
-git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+# Install Ruby from source
+wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+pushd "ruby-${RUBY_RELEASE_VERSION}"
+  ./configure
+  make -j4
+  make install
+popd
+rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 
-rbenv install $RUBY_CMD_VERSION
-rbenv global $RUBY_CMD_VERSION
+# Install Bundler
+gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
+
+# Install Rake
+gem install rake -v "${RAKE_RELEASE_VERSION}" --no-document
+
+# Install RDoc
+gem install rdoc -v "${RDOC_RELEASE_VERSION}"
+
+# Install CGI
+gem install cgi -v "${CGI_RELEASE_VERSION}"
 
 update-ca-certificates
 
