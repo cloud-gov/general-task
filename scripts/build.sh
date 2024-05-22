@@ -61,7 +61,8 @@ apt-get -y -q install --no-install-recommends \
   whois \
   libffi-dev \
   python3-pip \
-  python3-venv
+  python3-venv \
+  ruby-full
 
 apt-get clean
 
@@ -96,21 +97,6 @@ EOF
 
 nvm install $NODE_VERSION
 
-# Install Ruby using rbenv
-git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
-cat <<EOF >> "$HOME/.profile"
-export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-EOF
-# shellcheck source=/dev/null
-source "$HOME/.profile"
-cat <<EOF >> "$HOME/.profile"
-eval "$(rbenv init -)"
-EOF
-git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
-
-rbenv install $RUBY_CMD_VERSION
-rbenv global $RUBY_CMD_VERSION
-
 update-ca-certificates
 
 echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
@@ -138,6 +124,10 @@ mv /usr/local/bin/cf7 /usr/local/bin/cf
 
 echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-amd64-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
+
+# Install bundler gem
+echo "Installing bundler"
+gem install bundler
 
 # Install uaac gem
 echo "Installing uaac"

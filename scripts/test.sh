@@ -49,6 +49,7 @@ test_package sqlite3
 test_package unzip
 test_package zlib1g-dev
 test_package python3-pip
+test_package ruby
 
 #
 # Test installed commands
@@ -62,7 +63,7 @@ test_command curl "$CURL_CMD_VERSION"
 test_command git "$GIT_CMD_VERSION"
 test_command jq "$JQ_CMD_VERSION"
 test_command make "$MAKE_CMD_VERSION"
-test_command ruby "$RUBY_CMD_VERSION"
+#test_command ruby "$RUBY_CMD_VERSION"
 test_command terraform "$TERRAFORM_CMD_VERSION"
 test_command uaac "$UAAC_CMD_VERSION"
 test_command unzip "$UNZIP_CMD_VERSION"
