@@ -105,6 +105,7 @@ pushd "ruby-${RUBY_RELEASE_VERSION}"
   make install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+rm -rf "ruby-${RUBY_RELEASE_VERSION}"
 
 # Install Bundler
 gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
