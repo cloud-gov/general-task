@@ -1,7 +1,7 @@
 #
 # System settings
 #
-SYSTEM_TIMEZONE=EST
+SYSTEM_TIMEZONE=UTC
 
 #
 # Software releases (non package managed)
