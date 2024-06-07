@@ -107,6 +107,9 @@ popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 rm -rf "ruby-${RUBY_RELEASE_VERSION}"
 
+#update to latest rubygems
+gem update --system
+
 # Install Bundler
 gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
 
