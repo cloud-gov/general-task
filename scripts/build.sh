@@ -131,13 +131,13 @@ chmod +x /usr/local/bin/jq
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
 wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
-unzip -d /usr/local/bin terraform.zip
+unzip -d /usr/local/bin terraform.zip terraform
 mv /usr/local/bin/terraform /usr/local/bin/terratest-1.1
 rm -f terraform.zip
 
 echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
-unzip -d /usr/local/bin terraform.zip
+unzip -d /usr/local/bin terraform.zip terraform
 rm -f terraform.zip
 
 echo "Installing CF Client version 7 ${CF_CLI_RELEASE_VERSION7}"
@@ -192,7 +192,7 @@ popd
 rm -rf /tmp/bats-repo
 
 echo "Installing Doomsday CLI"
-wget https://github.com/cloud-gov/cg-doomsday/releases/download/1.0.0/doomsday-linux-amd64
+wget https://github.com/cloud-gov/cg-doomsday/releases/download/1.0.1/doomsday-linux-amd64
 chmod a+x doomsday-linux-amd64
 mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
