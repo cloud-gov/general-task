@@ -61,7 +61,9 @@ apt-get -y -q install --no-install-recommends \
   whois \
   libffi-dev \
   python3-pip \
-  python3-venv
+  python3-venv \
+  python3-dev
+
 
 apt-get clean
 
