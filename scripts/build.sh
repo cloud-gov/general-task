@@ -113,10 +113,10 @@ rm -rf "ruby-${RUBY_RELEASE_VERSION}"
 gem update --system
 
 # Install Bundler
-gem install bundler -v $BUNDLER_RELEASE_VERSION
+gem install bundler -v $BUNDLER_RELEASE_VERSION --no-document
 
 # Install Rake
-gem install rake -v $RAKE_RELEASE_VERSION
+gem install rake -v $RAKE_RELEASE_VERSION --no-document
 
 # Install RDoc
 gem install rdoc -v $RDOC_RELEASE_VERSION
