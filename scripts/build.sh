@@ -29,7 +29,7 @@ echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 
 #installs yq
-wget "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64.tar.gz"
+wget "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64.tar.gz"
 tar xvaf yq_linux_amd64.tar.gz
 mv yq_linux_amd64 /usr/bin/yq
 rm -f yq_linux_amd64.tar.gz yq.1 install-man-page.sh
@@ -113,25 +113,31 @@ rm -rf "ruby-${RUBY_RELEASE_VERSION}"
 gem update --system
 
 # Install Bundler
-gem install bundler -v "${BUNDLER_RELEASE_VERSION}" --no-document
+gem install bundler -v $BUNDLER_RELEASE_VERSION
 
 # Install Rake
-gem install rake -v "${RAKE_RELEASE_VERSION}" --no-document
+gem install rake -v $RAKE_RELEASE_VERSION
 
 # Install RDoc
-gem install rdoc -v "${RDOC_RELEASE_VERSION}"
+gem install rdoc -v $RDOC_RELEASE_VERSION
 
 # Install CGI
-gem install cgi -v "${CGI_RELEASE_VERSION}"
+gem install cgi -v $CGI_RELEASE_VERSION
+
+#Install rexml
+gem install rexml -v $REXML_RELEASE_VERSION
+
+# Install uaac gem
+gem install cf-uaac -v $UAAC_CLI_GEM_VERSION
 
 update-ca-certificates
 
-echo "Installing Spruce version ${SPRUCE_RELEASE_VERSION}"
-wget -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/download/v$SPRUCE_RELEASE_VERSION/spruce-linux-amd64"
+echo "Installing Spruce"
+wget -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/latest/download/spruce-linux-amd64"
 chmod +x /usr/local/bin/spruce
 
-echo "Installing jq version ${JQ_RELEASE_VERSION}"
-wget -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/download/jq-$JQ_RELEASE_VERSION/jq-linux-amd64"
+echo "Installing jq"
+wget -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64"
 chmod +x /usr/local/bin/jq
 
 echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
@@ -139,6 +145,7 @@ wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_T
 unzip -d /usr/local/bin terraform.zip terraform
 mv /usr/local/bin/terraform /usr/local/bin/terratest-1.1
 rm -f terraform.zip
+rm -f /usr/local/bin/LICENSE.txt
 
 echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 wget -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
@@ -151,10 +158,6 @@ mv /usr/local/bin/cf7 /usr/local/bin/cf
 
 echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-amd64-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
-
-# Install uaac gem
-echo "Installing uaac"
-gem install cf-uaac -v "$UAAC_CLI_GEM_VERSION" --no-document
 
 echo "Installing BOSH CLI v2 version ${BOSH_CLI_V2_RELEASE_VERSION}"
 curl -L -o /usr/local/bin/bosh "https://github.com/cloudfoundry/bosh-cli/releases/download/v${BOSH_CLI_V2_RELEASE_VERSION}/bosh-cli-${BOSH_CLI_V2_RELEASE_VERSION}-linux-amd64"
@@ -197,7 +200,7 @@ popd
 rm -rf /tmp/bats-repo
 
 echo "Installing Doomsday CLI"
-wget https://github.com/cloud-gov/cg-doomsday/releases/download/1.0.1/doomsday-linux-amd64
+wget https://github.com/cloud-gov/cg-doomsday/releases/latest/download/doomsday-linux-amd64
 chmod a+x doomsday-linux-amd64
 mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
