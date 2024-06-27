@@ -5,12 +5,6 @@
 #
 source ./config.sh
 
-# Source profile
-source ~/.profile
-
-# Node
-nvm use node
-
 #
 # Source library functions
 #
@@ -70,5 +64,5 @@ test_command uaac
 test_command unzip
 test_command go "go$GO_VERSION" version
 test_command yq
-test_command node "v$NODE_VERSION"
+test_command node
 test_command python "$PYTHON_CMD_VERSION"
