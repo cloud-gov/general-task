@@ -66,3 +66,4 @@ test_command go "go$GO_VERSION" version
 test_command yq
 test_command node
 test_command python "$PYTHON_CMD_VERSION"
+test_command ssh
