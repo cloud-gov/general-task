@@ -62,8 +62,8 @@ apt-get -y -q install --no-install-recommends \
   libffi-dev \
   python3-pip \
   python3-venv \
-  python3-dev
-
+  python3-dev \
+  openssh-client
 
 apt-get clean
 
