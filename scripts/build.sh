@@ -93,6 +93,23 @@ ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npm /usr/bin/npm
 ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
 rm -f "node-v${NODE_VERSION}-linux-x64.tar.xz"
 
+#install nvm for other node versions
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# N.b, adding to .profile so it's somewhere _moderately_ obvious,
+# but concourse doesn't run interactive shells so using nvm requires
+# manually sourcing .profile in your pipeline config
+cat <<EOF >> ~/.profile
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+EOF
+
+nvm install $NODE_VERSION
+
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
