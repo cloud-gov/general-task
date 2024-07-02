@@ -108,8 +108,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 EOF
 
-nvm install $NODE_VERSION
-
 # Install Ruby from source
 wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xvaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"

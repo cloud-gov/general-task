@@ -66,3 +66,9 @@ test_command go "go$GO_VERSION" version
 test_command yq
 test_command node
 test_command python "$PYTHON_CMD_VERSION"
+
+# we need to source .profile to load nvm scripts. We're waiting until now to
+# do so because sourcing it is the exception, so it's more important that
+# other things work _without_ sourcing .profile
+source ~/.profile
+test_command nvm
