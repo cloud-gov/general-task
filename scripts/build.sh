@@ -80,6 +80,7 @@ pip3 install pyopenssl -U
 pip3 install pyyaml -U
 pip3 install PyJWT -U
 pip3 install cryptography -U
+pip3 install pipenv -U
 
 echo "Installing awscli"
 pip3 install awscli
