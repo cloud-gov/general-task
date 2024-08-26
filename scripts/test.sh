@@ -27,6 +27,7 @@ echo "2. Testing installed packages"
 test_package build-essential
 test_package cmake
 test_package curl
+test_package gh
 test_package git
 test_package libcurl4-openssl-dev
 test_package libmysqlclient-dev

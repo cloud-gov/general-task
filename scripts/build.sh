@@ -182,6 +182,13 @@ rm go$GO_VERSION.linux-amd64.tar.gz
 
 go env -w GOBIN=/usr/local/bin
 
+#install gh
+wget "https://github.com/cli/cli/archive/refs/tags/v${GH_RELEASE_VERSION}.tar.gz"
+tar xvaf "v${GH_RELEASE_VERSION}.tar.gz"
+pushd "cli-${GH_RELEASE_VERSION}"
+  make install
+popd
+
 apt-get clean
 rm -rf /var/cache/apt
 
