@@ -4,6 +4,7 @@
 # Source configuration environment variables
 #
 source ./config.sh
+
 #
 # Source library functions
 #
@@ -48,21 +49,29 @@ test_package python3-pip
 # Test installed commands
 #
 echo "3. Testing installed commands"
-test_command bats "$BATS_CMD_VERSION"
+test_command bats
 test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
-test_command cf "$CF_CMD_VERSION"
-test_command cmake "$CMAKE_CMD_VERSION"
-test_command curl "$CURL_CMD_VERSION"
-test_command gem "$GEM_CMD_VERSION"
+test_command cf "$CF_CLI_RELEASE_VERSION7"
+test_command cmake
+test_command curl
+test_command gem
 test_command git "$GIT_CMD_VERSION"
-test_command jq "$JQ_CMD_VERSION"
-test_command make "$MAKE_CMD_VERSION"
-test_command rake "$RAKE_CMD_VERSION"
-test_command ruby "$RUBY_CMD_VERSION"
-test_command terraform "$TERRAFORM_CMD_VERSION"
-test_command uaac "$UAAC_CMD_VERSION"
-test_command unzip "$UNZIP_CMD_VERSION"
-test_command go "$GO_CMD_VERSION" version
-test_command yq "$YQ_VERSION"
-test_command node "$NODE_VERSION"
+test_command jq
+test_command make
+test_command rake
+test_command ruby "$RUBY_RELEASE_VERSION"
+test_command terraform
+test_command uaac
+test_command unzip
+test_command go "go$GO_VERSION" version
+test_command yq
+test_command node
 test_command python "$PYTHON_CMD_VERSION"
+test_command ssh
+
+
+# we need to source .profile to load nvm scripts. We're waiting until now to
+# do so because sourcing it is the exception, so it's more important that
+# other things work _without_ sourcing .profile
+source ~/.profile
+test_command nvm
