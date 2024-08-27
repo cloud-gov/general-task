@@ -133,6 +133,9 @@ gem install cgi -v $CGI_RELEASE_VERSION -q --silent
 #Install rexml
 gem install rexml -v $REXML_RELEASE_VERSION -q --silent
 
+#Uninstall rexml 3.2.8 which comes with ruby 3.3.4, this is installed because of a dependency from the gem rss-0.3.0
+gem uninstall 'rexml:3.2.8'
+
 # Install uaac gem
 gem install cf-uaac -v $UAAC_CLI_GEM_VERSION -q --silent
 
