@@ -16,6 +16,9 @@ WORKDIR /opt/concourse-ci/task
 #reduce warnings during build and accept default answers for packages
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Use fips endpoints when avaiable when using the AWS CLI
+ENV AWS_USE_FIPS_ENDPOINT true
+
 # Use a custom build script instead of messy chained together RUN
 # or multiple RUN statements that add bloat to the image
 # AND Run tests on the Docker build
