@@ -68,6 +68,7 @@ test_command yq
 test_command node
 test_command python "$PYTHON_CMD_VERSION"
 test_command ssh
+test_command trivy
 
 
 # we need to source .profile to load nvm scripts. We're waiting until now to
