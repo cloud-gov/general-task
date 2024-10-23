@@ -21,6 +21,9 @@ apt-get -qq -y install --no-install-recommends \
 RELEASE=$(lsb_release -cs)
 echo "deb http://apt.postgresql.org/pub/repos/apt/ $RELEASE-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+# install trivy apt repo
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
 apt-get update
 
 echo "Updating system timezone"
@@ -61,7 +64,8 @@ apt-get -qq -y install --no-install-recommends \
   python3-pip \
   python3-venv \
   python3-dev \
-  openssh-client
+  openssh-client \
+  trivy
 
 # symlink python to python3 executable
 ln -s "$(which python3)" /usr/bin/python
