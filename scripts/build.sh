@@ -195,7 +195,7 @@ tar xvaf "v${GH_RELEASE_VERSION}.tar.gz"
 pushd "cli-${GH_RELEASE_VERSION}"
   make install
 popd
-rm -r cli-${GH_RELEASE_VERSION} v{$GH_RELEASE_VERSION}.tar.gz
+rm -rf cli-${GH_RELEASE_VERSION} v{$GH_RELEASE_VERSION}.tar.gz
 
 apt-get clean
 rm -rf /var/cache/apt
