@@ -246,3 +246,7 @@ echo "Installing Alertmanager CLI"
 go install github.com/prometheus/alertmanager/cmd/amtool@latest
 
 rm -rf /var/lib/apt/lists/*
+
+#cleanup go cache
+go clean -cache
+go clean -modcache
