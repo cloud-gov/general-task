@@ -195,6 +195,7 @@ tar xvaf "v${GH_RELEASE_VERSION}.tar.gz"
 pushd "cli-${GH_RELEASE_VERSION}"
   make install
 popd
+rm -rf cli-${GH_RELEASE_VERSION} v{$GH_RELEASE_VERSION}.tar.gz
 
 apt-get clean
 rm -rf /var/cache/apt
@@ -246,3 +247,7 @@ echo "Installing Alertmanager CLI"
 go install github.com/prometheus/alertmanager/cmd/amtool@latest
 
 rm -rf /var/lib/apt/lists/*
+
+#cleanup go cache
+go clean -cache
+go clean -modcache
