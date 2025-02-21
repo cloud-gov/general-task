@@ -225,11 +225,6 @@ wget -q https://github.com/cloud-gov/cg-doomsday/releases/latest/download/doomsd
 chmod a+x doomsday-linux-amd64
 mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
-echo "Installing new UAA client."
-wget -q https://github.com/cloudfoundry/uaa-cli/releases/download/${UAA_CLIENT_VERSION}/uaa-linux-amd64-${UAA_CLIENT_VERSION}
-mv uaa-linux-amd64-${UAA_CLIENT_VERSION} /usr/bin/uaa
-chmod a+x /usr/bin/uaa
-
 echo "Installing GitHub CLI"
 # # Instructions adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
