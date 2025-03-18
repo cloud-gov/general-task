@@ -94,7 +94,7 @@ ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
 rm -f "node-v${NODE_VERSION}-linux-x64.tar.xz"
 
 #install nvm for other node versions
-curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -109,7 +109,7 @@ export NVM_DIR="$HOME/.nvm"
 EOF
 
 # Install Ruby from source
-wget -q "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
+wget -q "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure -q
