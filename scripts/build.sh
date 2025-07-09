@@ -14,16 +14,17 @@ apt-get -qq -y install --no-install-recommends \
   gnupg2 \
   tzdata \
   wget \
-  lsb-release \
+  curl \
   ca-certificates
 
 # install postgres apt repo
-RELEASE=$(lsb_release -cs)
-echo "deb http://apt.postgresql.org/pub/repos/apt/ $RELEASE-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
-wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add -
+install -d /usr/share/postgresql-common/pgdg
+curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+. /etc/os-release
+sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
 # install trivy apt repo
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
-echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | tee -a /etc/apt/sources.list.d/trivy.list
 apt-get update
 
 echo "Updating system timezone"
@@ -40,7 +41,6 @@ apt-get -qq -y install --no-install-recommends \
   build-essential \
   zlib1g-dev \
   cmake \
-  curl \
   dnsutils \
   git \
   libcurl4-openssl-dev \
@@ -113,7 +113,7 @@ wget -q "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_RELEASE_VERSION}.t
 tar xaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
   ./configure -q
-  make -s -j4
+  make -s -j $(nproc)
   make -s install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
@@ -136,9 +136,6 @@ gem install cgi -v $CGI_RELEASE_VERSION -q --silent
 
 #Install rexml
 gem install rexml -v $REXML_RELEASE_VERSION -q --silent
-
-#Uninstall rexml 3.2.8 which comes with ruby 3.3.4, this is installed because of a dependency from the gem rss-0.3.0
-gem uninstall 'rexml:3.2.8'
 
 # Install uaac gem
 gem install cf-uaac -v $UAAC_CLI_GEM_VERSION -q --silent
@@ -191,14 +188,6 @@ ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
 rm go$GO_VERSION.linux-amd64.tar.gz
 
 go env -w GOBIN=/usr/local/bin
-
-#install gh
-wget "https://github.com/cli/cli/archive/refs/tags/v${GH_RELEASE_VERSION}.tar.gz"
-tar xvaf "v${GH_RELEASE_VERSION}.tar.gz"
-pushd "cli-${GH_RELEASE_VERSION}"
-  make install
-popd
-rm -rf cli-${GH_RELEASE_VERSION} v{$GH_RELEASE_VERSION}.tar.gz
 
 apt-get clean
 rm -rf /var/cache/apt
