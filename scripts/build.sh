@@ -34,6 +34,8 @@ ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
 wget -q "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64.tar.gz"
 tar xaf yq_linux_amd64.tar.gz
 mv yq_linux_amd64 /usr/bin/yq
+chgrp root /usr/bin/yq
+chgrp root /bin/yq
 rm -f yq_linux_amd64.tar.gz yq.1 install-man-page.sh
 
 echo "Installing basic libraries and development utilities"
@@ -164,10 +166,15 @@ rm -f terraform.zip
 
 echo "Installing CF Client version 7 ${CF_CLI_RELEASE_VERSION7}"
 curl -s -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION7}" | tar -zx -C /usr/local/bin
+chgrp root /usr/local/bin/cf7
 
 echo "Installing CF Client version 8 ${CF_CLI_RELEASE_VERSION8}"
 curl -s -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION8}" | tar -zx -C /usr/local/bin
 mv /usr/local/bin/cf8 /usr/local/bin/cf
+chgrp root /usr/local/bin/cf
+
+#cleanup cf files
+rm -f /usr/local/bin/LICENSE /usr/local/bin/NOTICE
 
 echo "Installing Credhub Client version ${CREDHUB_CLI_RELEASE_VERSION}"
 curl -s -L "https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/${CREDHUB_CLI_RELEASE_VERSION}/credhub-linux-amd64-${CREDHUB_CLI_RELEASE_VERSION}.tgz" | tar -zx -C /usr/local/bin
