@@ -44,6 +44,8 @@ test_package sqlite3
 test_package unzip
 test_package zlib1g-dev
 test_package python3-pip
+test_package postgresql-client
+test_package mysql-client
 
 #
 # Test installed commands
@@ -70,6 +72,8 @@ test_command node
 test_command python "$PYTHON_CMD_VERSION"
 test_command ssh
 test_command trivy
+test_command psql
+test_command mysql
 
 
 # we need to source .profile to load nvm scripts. We're waiting until now to
