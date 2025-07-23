@@ -54,6 +54,7 @@ apt-get -qq -y install --no-install-recommends \
   libxml2-dev \
   libxslt1-dev \
   libyaml-dev \
+  mysql-client \
   openssl \
   postgresql-client \
   postgresql-client-common \
