@@ -10,6 +10,9 @@ FROM ${base_image}
 # Copy local project directories to container image
 COPY . /opt/concourse-ci/task
 
+# Configure readline to fix issues with bracketed paste mode in SSH
+COPY .inputrc /root/.inputrc
+
 # Set current working directory for executed scripts
 WORKDIR /opt/concourse-ci/task
 
