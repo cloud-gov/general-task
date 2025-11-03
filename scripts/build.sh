@@ -164,10 +164,6 @@ wget -q -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFOR
 unzip -qq -d /usr/local/bin terraform.zip terraform
 rm -f terraform.zip
 
-echo "Installing CF Client version 7 ${CF_CLI_RELEASE_VERSION7}"
-curl -s -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION7}" | tar -zx -C /usr/local/bin
-chown root:root /usr/local/bin/cf7
-
 echo "Installing CF Client version 8 ${CF_CLI_RELEASE_VERSION8}"
 curl -s -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION8}" | tar -zx -C /usr/local/bin
 mv /usr/local/bin/cf8 /usr/local/bin/cf
