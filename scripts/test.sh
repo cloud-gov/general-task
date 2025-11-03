@@ -54,7 +54,6 @@ echo "3. Testing installed commands"
 test_command bats
 test_command bosh "$BOSH_CLI_V2_RELEASE_VERSION"
 test_command cf "$CF_CLI_RELEASE_VERSION8"
-test_command cf7 "$CF_CLI_RELEASE_VERSION7"
 test_command cmake
 test_command curl
 test_command gem
