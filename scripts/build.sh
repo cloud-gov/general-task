@@ -148,10 +148,6 @@ gem install cf-uaac -v $UAAC_CLI_GEM_VERSION -q --silent
 # uninstall old rexml
 gem uninstall rexml -v 3.4.0
 
-echo "Installing Spruce"
-wget -q -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/latest/download/spruce-linux-amd64"
-chmod +x /usr/local/bin/spruce
-
 echo "Installing jq"
 wget -q -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64"
 chmod +x /usr/local/bin/jq
@@ -198,6 +194,14 @@ go env -w GOBIN=/usr/local/bin
 
 apt-get clean
 rm -rf /var/cache/apt
+
+echo "Installing Spruce"
+git clone https://github.com/geofffranks/spruce.git
+pushd spruce
+make all
+mv spruce /usr/local/bin/spruce
+popd
+rm -rf spruce
 
 echo "Configuring TF CLI local provider_installation"
 cat <<EOF >> ~/.terraformrc
