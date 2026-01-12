@@ -95,6 +95,9 @@ ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npm /usr/bin/npm
 ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
 rm -f "node-v${NODE_VERSION}-linux-x64.tar.xz"
 
+#update npm
+npm install -g npm@latest
+
 #install nvm for other node versions
 curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
@@ -136,17 +139,14 @@ gem install rdoc -v $RDOC_RELEASE_VERSION -q --silent
 # Install CGI
 gem install cgi -v $CGI_RELEASE_VERSION -q --silent
 
-#Install rexml
+# Install rexml
 gem install rexml -v $REXML_RELEASE_VERSION -q --silent
 
 # Install uaac gem
 gem install cf-uaac -v $UAAC_CLI_GEM_VERSION -q --silent
 
-update-ca-certificates
-
-echo "Installing Spruce"
-wget -q -L -O /usr/local/bin/spruce "https://github.com/geofffranks/spruce/releases/latest/download/spruce-linux-amd64"
-chmod +x /usr/local/bin/spruce
+# uninstall old rexml
+gem uninstall rexml -v 3.4.0
 
 echo "Installing jq"
 wget -q -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64"
@@ -194,6 +194,14 @@ go env -w GOBIN=/usr/local/bin
 
 apt-get clean
 rm -rf /var/cache/apt
+
+echo "Installing Spruce"
+git clone https://github.com/geofffranks/spruce.git
+pushd spruce
+make all
+mv spruce /usr/local/bin/spruce
+popd
+rm -rf spruce
 
 echo "Configuring TF CLI local provider_installation"
 cat <<EOF >> ~/.terraformrc
