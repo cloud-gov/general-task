@@ -63,8 +63,7 @@ apt-get -qq -y install --no-install-recommends \
   python3-pip \
   python3-venv \
   python3-dev \
-  openssh-client \
-  trivy
+  openssh-client
 
 # symlink python to python3 executable
 ln -s "$(which python3)" /usr/bin/python
