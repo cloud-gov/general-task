@@ -148,13 +148,6 @@ echo "Installing jq"
 wget -q -L -O /usr/local/bin/jq "https://github.com/jqlang/jq/releases/latest/download/jq-linux-amd64"
 chmod +x /usr/local/bin/jq
 
-echo "Installing terraform version ${TERRAFORM_TEST_RELEASE_VERSION} "
-wget -q -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_TEST_RELEASE_VERSION}/terraform_${TERRAFORM_TEST_RELEASE_VERSION}_linux_amd64.zip"
-unzip -qq -d /usr/local/bin terraform.zip terraform
-mv /usr/local/bin/terraform /usr/local/bin/terratest-1.1
-rm -f terraform.zip
-rm -f /usr/local/bin/LICENSE.txt
-
 echo "Installing terraform version ${TERRAFORM_RELEASE_VERSION} "
 wget -q -L -O terraform.zip "https://releases.hashicorp.com/terraform/${TERRAFORM_RELEASE_VERSION}/terraform_${TERRAFORM_RELEASE_VERSION}_linux_amd64.zip"
 unzip -qq -d /usr/local/bin terraform.zip terraform
