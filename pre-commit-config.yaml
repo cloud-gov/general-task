@@ -1,0 +1,14 @@
+repos:
+  # Generic hygiene (all repos)
+  - repo: https://github.com/cloud-gov/pre-commit-templates
+    rev: v0.5.3 # Pin to specific version
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: shellcheck
+      - id: shfmt-check
+      - id: hadolint
