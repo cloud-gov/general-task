@@ -1,3 +1,5 @@
+#!/bin/bash
+# shellcheck disable=SC2034  # Unused variables left for readability
 #
 # System settings
 #

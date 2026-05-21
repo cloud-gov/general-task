@@ -3,13 +3,13 @@
 #
 # Source configuration environment variables
 #
+# shellcheck source=/dev/null
 source ./config.sh
-
 #
 # Source library functions
 #
-for file in /opt/concourse-ci/task/lib/*.sh
-  do source $file
+for file in /opt/concourse-ci/task/lib/*.sh; do
+	source "$file"
 done
 
 echo "--- TESTS ---"
@@ -72,7 +72,6 @@ test_command python "$PYTHON_CMD_VERSION"
 test_command ssh
 test_command psql
 test_command mysql
-
 
 # we need to source .profile to load nvm scripts. We're waiting until now to
 # do so because sourcing it is the exception, so it's more important that
