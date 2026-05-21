@@ -5,24 +5,25 @@ set -e
 #
 # Source configuration environment variables
 #
+# shellcheck source=/dev/null
 source ./config.sh
 
 apt-get update
 apt-get -y upgrade
 apt-get -qq -y install --no-install-recommends \
-  apt-utils \
-  gnupg2 \
-  tzdata \
-  wget \
-  curl \
-  ca-certificates
+	apt-utils \
+	gnupg2 \
+	tzdata \
+	wget \
+	curl \
+	ca-certificates
 
 # install postgres apt repo
 install -d /usr/share/postgresql-common/pgdg
 curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+# shellcheck source=/dev/null
 . /etc/os-release
 sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
-
 
 echo "Updating system timezone"
 ln -sf "/usr/share/zoneinfo/$SYSTEM_TIMEZONE" /etc/localtime
@@ -36,34 +37,34 @@ rm -f yq_linux_amd64.tar.gz yq.1 install-man-page.sh
 
 echo "Installing basic libraries and development utilities"
 apt-get -qq -y install --no-install-recommends \
-  build-essential \
-  zlib1g-dev \
-  cmake \
-  dnsutils \
-  git \
-  libcurl4-openssl-dev \
-  libmysqlclient-dev \
-  libpopt-dev \
-  libpq-dev \
-  libsqlite3-dev \
-  libssl-dev \
-  libreadline-dev \
-  libxml2-dev \
-  libxslt1-dev \
-  libyaml-dev \
-  mysql-client \
-  openssl \
-  postgresql-client \
-  postgresql-client-common \
-  sqlite3 \
-  unzip \
-  vim \
-  whois \
-  libffi-dev \
-  python3-pip \
-  python3-venv \
-  python3-dev \
-  openssh-client
+	build-essential \
+	zlib1g-dev \
+	cmake \
+	dnsutils \
+	git \
+	libcurl4-openssl-dev \
+	libmysqlclient-dev \
+	libpopt-dev \
+	libpq-dev \
+	libsqlite3-dev \
+	libssl-dev \
+	libreadline-dev \
+	libxml2-dev \
+	libxslt1-dev \
+	libyaml-dev \
+	mysql-client \
+	openssl \
+	postgresql-client \
+	postgresql-client-common \
+	sqlite3 \
+	unzip \
+	vim \
+	whois \
+	libffi-dev \
+	python3-pip \
+	python3-venv \
+	python3-dev \
+	openssh-client
 
 # symlink python to python3 executable
 ln -s "$(which python3)" /usr/bin/python
@@ -72,23 +73,23 @@ ln -s "$(which python3)" /usr/bin/python
 echo "Upgrading python packages"
 pip3 install -q --upgrade pip
 pip3 install -q -U \
-  setuptools \
-  wheel \
-  oauthlib \
-  pyopenssl \
-  pyyaml \
-  PyJWT \
-  cryptography \
-  pipenv \
-  awscli
+	setuptools \
+	wheel \
+	oauthlib \
+	pyopenssl \
+	pyyaml \
+	PyJWT \
+	cryptography \
+	pipenv \
+	awscli
 
 #install nodejs using binary
 wget -q "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz"
 mkdir -p /usr/local/lib/nodejs
-tar -xJf node-v${NODE_VERSION}-linux-x64.tar.xz -C /usr/local/lib/nodejs
-ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/node /usr/bin/node
-ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npm /usr/bin/npm
-ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-linux-x64/bin/npx /usr/bin/npx
+tar -xJf node-v"${NODE_VERSION}"-linux-x64.tar.xz -C /usr/local/lib/nodejs
+ln -s /usr/local/lib/nodejs/node-v"${NODE_VERSION}"-linux-x64/bin/node /usr/bin/node
+ln -s /usr/local/lib/nodejs/node-v"${NODE_VERSION}"-linux-x64/bin/npm /usr/bin/npm
+ln -s /usr/local/lib/nodejs/node-v"${NODE_VERSION}"-linux-x64/bin/npx /usr/bin/npx
 rm -f "node-v${NODE_VERSION}-linux-x64.tar.xz"
 
 #update npm
@@ -97,13 +98,15 @@ npm install -g npm@latest
 #install nvm for other node versions
 curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # N.b, adding to .profile so it's somewhere _moderately_ obvious,
 # but concourse doesn't run interactive shells so using nvm requires
 # manually sourcing .profile in your pipeline config
-cat <<EOF >> ~/.profile
+cat <<EOF >>~/.profile
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -113,9 +116,9 @@ EOF
 wget -q "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 tar xaf "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 pushd "ruby-${RUBY_RELEASE_VERSION}"
-  ./configure -q
-  make -s -j $(nproc)
-  make -s install
+./configure -q
+make -s -j "$(nproc)"
+make -s install
 popd
 rm -f "ruby-${RUBY_RELEASE_VERSION}.tar.gz"
 rm -rf "ruby-${RUBY_RELEASE_VERSION}"
@@ -124,22 +127,22 @@ rm -rf "ruby-${RUBY_RELEASE_VERSION}"
 gem update --system -q --silent
 
 # Install Bundler
-gem install bundler -v $BUNDLER_RELEASE_VERSION --no-document -q --silent
+gem install bundler -v "$BUNDLER_RELEASE_VERSION" --no-document -q --silent
 
 # Install Rake
-gem install rake -v $RAKE_RELEASE_VERSION --no-document -q --silent
+gem install rake -v "$RAKE_RELEASE_VERSION" --no-document -q --silent
 
 # Install RDoc
-gem install rdoc -v $RDOC_RELEASE_VERSION -q --silent
+gem install rdoc -v "$RDOC_RELEASE_VERSION" -q --silent
 
 # Install CGI
-gem install cgi -v $CGI_RELEASE_VERSION -q --silent
+gem install cgi -v "$CGI_RELEASE_VERSION" -q --silent
 
 # Install rexml
-gem install rexml -v $REXML_RELEASE_VERSION -q --silent
+gem install rexml -v "$REXML_RELEASE_VERSION" -q --silent
 
 # Install uaac gem
-gem install cf-uaac -v $UAAC_CLI_GEM_VERSION -q --silent
+gem install cf-uaac -v "$UAAC_CLI_GEM_VERSION" -q --silent
 
 # uninstall old rexml
 gem uninstall rexml -v 3.4.0
@@ -177,7 +180,7 @@ mkdir -p /usr/local/go
 tar -xzf "go$GO_VERSION.linux-amd64.tar.gz" -C /usr/local/go --strip-components=1
 ln -s /usr/local/go/bin/go /usr/local/bin/go
 ln -s /usr/local/go/bin/gofmt /usr/local/bin/gofmt
-rm go$GO_VERSION.linux-amd64.tar.gz
+rm go"$GO_VERSION".linux-amd64.tar.gz
 
 go env -w GOBIN=/usr/local/bin
 
@@ -193,7 +196,7 @@ popd
 rm -rf spruce
 
 echo "Configuring TF CLI local provider_installation"
-cat <<EOF >> ~/.terraformrc
+cat <<EOF >>~/.terraformrc
 provider_installation {
   filesystem_mirror {
     path    = "$HOME/.terraform-providers/"
@@ -219,11 +222,11 @@ mv ./doomsday-linux-amd64 /usr/bin/doomsday
 
 echo "Installing GitHub CLI"
 # # Instructions adapted from: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-  | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg |
+	dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
-  | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" |
+	tee /etc/apt/sources.list.d/github-cli.list >/dev/null
 apt-get update
 apt-get -qq install gh -y
 
