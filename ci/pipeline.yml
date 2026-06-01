@@ -74,6 +74,42 @@ jobs:
           PROJECT_NAME: "cloud.gov team"
           SQUAD_LABEL: "squad-platform"
 
+  - name: uaa-cli-release-notification
+    plan:
+      - in_parallel:
+          - get: github-release
+            resource: uaa-cli-release
+            trigger: true
+          - get: pipeline-tasks
+            params: { depth: 1 }
+      - task: create-issue
+        file: pipeline-tasks/gh-release-notifier.yml
+        params:
+          CLOSE_OLD_ISSUES: "true"
+          DEPENDENCY_NAME: "uaa-cli"
+          GH_REPO: "https://github.com/cloud-gov/general-task"
+          GH_TOKEN: ((cg-ci-bot-projects-ghtoken))
+          PROJECT_NAME: "cloud.gov team"
+          SQUAD_LABEL: "squad-platform"
+
+  - name: rake-release-notification
+    plan:
+      - in_parallel:
+          - get: github-release
+            resource: rake-release
+            trigger: true
+          - get: pipeline-tasks
+            params: { depth: 1 }
+      - task: create-issue
+        file: pipeline-tasks/gh-release-notifier.yml
+        params:
+          CLOSE_OLD_ISSUES: "true"
+          DEPENDENCY_NAME: "rake"
+          GH_REPO: "https://github.com/cloud-gov/general-task"
+          GH_TOKEN: ((cg-ci-bot-projects-ghtoken))
+          PROJECT_NAME: "cloud.gov team"
+          SQUAD_LABEL: "squad-platform"
+
 resources:
   - name: cf-cli-release
     type: github-release
@@ -108,6 +144,22 @@ resources:
       access_token: ((cg-ci-bot-ghtoken))
       owner: cloudfoundry
       repository: credhub-cli
+
+  - name: uaa-cli-release
+    type: github-release
+    check_every: 2h
+    source:
+      access_token: ((cg-ci-bot-ghtoken))
+      owner: cloudfoundry
+      repository: uaa-cli
+
+  - name: rake-release
+    type: github-release
+    check_every: 2h
+    source:
+      access_token: ((cg-ci-bot-ghtoken))
+      owner: ruby
+      repository: rake
 
   - name: pipeline-tasks
     type: git
