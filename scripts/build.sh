@@ -157,7 +157,7 @@ unzip -qq -d /usr/local/bin terraform.zip terraform
 rm -f terraform.zip
 
 echo "Installing CF Client version 8 ${CF_CLI_RELEASE_VERSION8}"
-curl -s -L "https://cli.run.pivotal.io/stable?release=linux64-binary&version=${CF_CLI_RELEASE_VERSION8}" | tar -zx -C /usr/local/bin
+curl -s -L "https://github.com/cloudfoundry/cli/releases/download/v${CF_CLI_RELEASE_VERSION8}/cf8-cli_${CF_CLI_RELEASE_VERSION8}_linux_x86-64.tgz" | tar -zx -C /usr/local/bin
 mv /usr/local/bin/cf8 /usr/local/bin/cf
 chown root:root /usr/local/bin/cf
 
