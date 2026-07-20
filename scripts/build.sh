@@ -96,7 +96,7 @@ rm -f "node-v${NODE_VERSION}-linux-x64.tar.xz"
 npm install -g npm@latest
 
 #install nvm for other node versions
-curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 # shellcheck source=/dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -133,16 +133,16 @@ gem install bundler -v "$BUNDLER_RELEASE_VERSION" --no-document -q --silent
 gem install rake -v "$RAKE_RELEASE_VERSION" --no-document -q --silent
 
 # Install RDoc
-gem install rdoc -v "$RDOC_RELEASE_VERSION" -q --silent
+gem install rdoc -v "$RDOC_RELEASE_VERSION" --no-document -q --silent
 
 # Install CGI
-gem install cgi -v "$CGI_RELEASE_VERSION" -q --silent
+gem install cgi -v "$CGI_RELEASE_VERSION" --no-document -q --silent
 
 # Install rexml
-gem install rexml -v "$REXML_RELEASE_VERSION" -q --silent
+gem install rexml -v "$REXML_RELEASE_VERSION" --no-document -q --silent
 
 # Install uaac gem
-gem install cf-uaac -v "$UAAC_CLI_GEM_VERSION" -q --silent
+gem install cf-uaac -v "$UAAC_CLI_GEM_VERSION" --no-document -q --silent
 
 # uninstall old rexml
 gem uninstall rexml -v 3.4.0
