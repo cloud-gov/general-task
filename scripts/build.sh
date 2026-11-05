@@ -69,12 +69,14 @@ add-apt-repository -y ppa:deadsnakes/ppa
 apt update -y
 apt install -y "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
-# symlink python to python3 executable
+# symlink python executables
+ln -sf "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python3
 ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 
 # upgrade pip and install necessary packages
 echo "Upgrading python packages"
 python -m ensurepip --upgrade --default-pip
+pip install --upgrade pip
 pip install -q -U \
 	setuptools \
 	wheel \
