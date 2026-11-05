@@ -70,7 +70,7 @@ apt update -y
 apt install -y "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
 # symlink python executables
-ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python3
+ln -sf "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python3
 ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 
 # upgrade pip and install necessary packages
