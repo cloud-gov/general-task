@@ -61,18 +61,21 @@ apt-get -qq -y install --no-install-recommends \
 	vim \
 	whois \
 	libffi-dev \
-	python3-pip \
-	python3-venv \
-	python3-dev \
-	openssh-client
+	openssh-client \
+	software-properties-common
+
+# Install Python
+add-apt-repository -y ppa:deadsnakes/ppa
+apt update -y
+apt install -y "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
 # symlink python to python3 executable
-ln -s "$(which python3)" /usr/bin/python
+ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 
-#upgrade pip and install necessary packages
+# upgrade pip and install necessary packages
 echo "Upgrading python packages"
-pip3 install -q --upgrade pip
-pip3 install -q -U \
+python -m ensurepip --upgrade --default-pip
+pip install -q -U \
 	setuptools \
 	wheel \
 	oauthlib \

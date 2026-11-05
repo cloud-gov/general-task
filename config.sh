@@ -27,4 +27,4 @@ UAAC_CLI_GEM_VERSION=5.1.0
 # Command versions (only for testing purposes)
 #
 GIT_CMD_VERSION=2.34.1
-PYTHON_CMD_VERSION=3
+PYTHON_CMD_VERSION=3.13
