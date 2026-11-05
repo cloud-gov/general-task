@@ -75,7 +75,7 @@ ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 # upgrade pip and install necessary packages
 echo "Upgrading python packages"
 python -m ensurepip --upgrade --default-pip
-python -m install -q -U \
+python -m pip install -q -U \
 	setuptools \
 	wheel \
 	oauthlib \
