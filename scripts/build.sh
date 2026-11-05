@@ -61,15 +61,16 @@ apt-get -qq -y install --no-install-recommends \
 	vim \
 	whois \
 	libffi-dev \
-	openssh-client
+	openssh-client \
+	software-properties-common
 
 # Install Python
-add-apt-repository ppa:deadsnakes/ppa
+add-apt-repository -y ppa:deadsnakes/ppa
 apt update
-apt install python3.13 python3.13-venv python3.13-dev
+apt install "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
 # symlink python to python3 executable
-ln -s "$(which python3)" /usr/bin/python
+ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 
 # upgrade pip and install necessary packages
 echo "Upgrading python packages"
