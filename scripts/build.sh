@@ -64,13 +64,9 @@ apt-get -qq -y install --no-install-recommends \
 	openssh-client
 
 # Install Python
-wget -q "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz"
-tar -xf "Python-${PYTHON_VERSION}.tgz"
-cd "Python-$PYTHON_VERSION"
-./configure --enable-optimizations
-make -j "$(nproc)"
-make install
-rm -f "Python-${PYTHON_VERSION}.tgz"
+add-apt-repository ppa:deadsnakes/ppa
+apt update
+apt install python3.13 python3.13-venv python3.13-dev
 
 # symlink python to python3 executable
 ln -s "$(which python3)" /usr/bin/python
