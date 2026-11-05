@@ -67,15 +67,15 @@ apt-get -qq -y install --no-install-recommends \
 # Install Python
 add-apt-repository -y ppa:deadsnakes/ppa
 apt update -y
-apt install "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
+apt install -y "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
 # symlink python to python3 executable
 ln -s "$(which python"${PYTHON_CMD_VERSION}")" /usr/bin/python
 
 # upgrade pip and install necessary packages
 echo "Upgrading python packages"
-pip3 install -q --upgrade pip
-pip3 install -q -U \
+python -m ensurepip --upgrade --default-pip
+python -m install -q -U \
 	setuptools \
 	wheel \
 	oauthlib \
