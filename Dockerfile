@@ -3,7 +3,7 @@
 # DESCRIPTION:    Concourse Task Image
 # TO_BUILD:       docker build -t local/task .
 # TO_RUN:         docker run local/task echo "Hello World!"
-ARG base_image
+ARG base_image=ubuntu:22.04
 
 FROM ${base_image}
 
@@ -20,7 +20,7 @@ WORKDIR /opt/concourse-ci/task
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Use fips endpoints when avaiable when using the AWS CLI
-ENV AWS_USE_FIPS_ENDPOINT true
+ENV AWS_USE_FIPS_ENDPOINT=true
 
 # Use a custom build script instead of messy chained together RUN
 # or multiple RUN statements that add bloat to the image
