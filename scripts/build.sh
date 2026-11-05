@@ -66,7 +66,7 @@ apt-get -qq -y install --no-install-recommends \
 
 # Install Python
 add-apt-repository -y ppa:deadsnakes/ppa
-apt update
+apt update -y
 apt install "python${PYTHON_CMD_VERSION}" "python${PYTHON_CMD_VERSION}-venv" "python${PYTHON_CMD_VERSION}-dev"
 
 # symlink python to python3 executable
